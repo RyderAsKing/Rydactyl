@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\DiscordController;
+use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Controllers\Dashboard\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +18,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('welcome');
+})->name('home');
+
+Route::middleware([RedirectIfAuthenticated::class])->group(function () {
+    Route::get('/login', [DiscordController::class, 'build_url'])->name('login');
+    Route::get('/login/token', [DiscordController::class, 'login']);
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/logout', [DiscordController::class, 'logout'])->name('logout');
+});

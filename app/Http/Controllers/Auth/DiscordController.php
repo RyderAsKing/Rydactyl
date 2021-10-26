@@ -20,16 +20,28 @@ class DiscordController extends Controller
         "grant_type" => "authorization_code",
         "code" => NULL,
         "redirect_uri" => NULL,
-        "scope" => "identifiy&email&guilds&guilds.join"
+        "scope" => "identifiy guilds guilds.join email"
     ];
+
+    public function build_url()
+    {
+        $params = array(
+            'client_id' => env('DISCORD_CLIENT_ID'),
+            'redirect_uri' => env('APP_URL') . '/login/token',
+            'response_type' => 'code',
+            'scope' => 'identify guilds guilds.join email'
+        );
+
+        return redirect('https://discord.com/api/oauth2/authorize' . '?' . http_build_query($params));
+    }
 
     public function login(Request $request)
     {
         if (Auth::check()) {
-            return redirect()->route("index");
+            return redirect()->route("dashboard");
         };
         if ($request->missing("code") && $request->missing("access_token")) {
-            return redirect()->route("index");
+            return redirect()->route("dashboard");
         };
 
         $this->tokenData["client_id"] = env("DISCORD_CLIENT_ID");
@@ -43,12 +55,12 @@ class DiscordController extends Controller
             $accessTokenData = $client->post($this->tokenURL, ["form_params" => $this->tokenData]);
             $accessTokenData = json_decode($accessTokenData->getBody());
         } catch (\GuzzleHttp\Exception\ClientException $error) {
-            return redirect()->route("index");
+            return redirect()->route("dashboard");
         };
 
         $userData = Http::withToken($accessTokenData->access_token)->get($this->apiURLBase);
         if ($userData->clientError() || $userData->serverError()) {
-            return redirect()->route("index");
+            return redirect()->route("dashboard");
         };
 
         $userData = json_decode($userData);
@@ -75,6 +87,6 @@ class DiscordController extends Controller
         Auth::logout();
         $request->session()->invalidate();
 
-        return redirect()->route("welcome");
+        return redirect()->route("home");
     }
 }
