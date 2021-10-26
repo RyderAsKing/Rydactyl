@@ -62,9 +62,12 @@ class DiscordController extends Controller
         if ($userData->clientError() || $userData->serverError()) {
             return redirect()->route("dashboard");
         };
-
         $userData = json_decode($userData);
-        dd($userData);
+
+        $userGuilds = Http::withToken($accessTokenData->access_token)->get($this->apiURLBase . "/guilds");
+        $userGuilds = json_decode($userGuilds);
+        dd($userGuilds);
+
         $user = User::updateOrCreate(
             [
                 'discord_id' => $userData->id,
@@ -76,6 +79,13 @@ class DiscordController extends Controller
                 'refresh_token' => $accessTokenData->refresh_token,
             ]
         );
+
+
+
+        // // let the user join the falixnodes discord server (if not already joined) and add the role to him/her (if not already added)
+
+        // JoinGuild($user->id, $discord['autojoin_guildid'], $discord['autojoin_role'], $discord['bot_token']);
+        // AddRoleToGuildMember($user->id, $discord['autojoin_guildid'], $discord['autojoin_role'], $discord['bot_token']);
 
         Auth::login($user);
 
