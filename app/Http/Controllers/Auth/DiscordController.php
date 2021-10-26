@@ -88,6 +88,7 @@ class DiscordController extends Controller
         }
 
         Session::put('access_token', $accessTokenData->access_token);
+        Session::put('user', $userData);
 
         Auth::login($user);
 
