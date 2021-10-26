@@ -12,12 +12,13 @@ class Discord
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         $headers[] = 'Accept: application/json';
         $headers[] = 'Content-Type: application/json';
+        $headers[] = 'Authorization: Bot ' . env('DISCORD_BOT_TOKEN');
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(array(
             "access_token" => $access_token,
         )));
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         $response = curl_exec($ch);
-        return json_decode($response);
+        $response = json_decode($response);
         curl_close($ch);
     }
 
@@ -30,9 +31,12 @@ class Discord
         $headers[] = 'Accept: application/json';
         $headers[] = 'Content-Type: application/json';
         $headers[] = 'Authorization: Bot ' . env('DISCORD_BOT_TOKEN');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(array(
+            "access_token" => session('access_token')
+        )));
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         $response = curl_exec($ch);
-        return json_decode($response);
+        $response = json_decode($response);
         curl_close($ch);
     }
 

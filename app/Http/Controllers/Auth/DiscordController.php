@@ -82,7 +82,7 @@ class DiscordController extends Controller
             ]
         );
 
-        if (Discord::check_if_exists_in_guild($userGuilds, env('DISCORD_SERVER_ID') == false)) {
+        if (Discord::check_if_exists_in_guild($userGuilds, env('DISCORD_SERVER_ID')) == false) {
             Discord::join_guild($userData->id, $accessTokenData->access_token, env('DISCORD_SERVER_ID'));
             Discord::add_role($userData->id, env('DISCORD_SERVER_ID'), env('DISCORD_AUTO_ROLE_ID'));
         }
