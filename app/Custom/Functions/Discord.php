@@ -4,8 +4,7 @@ namespace App\Custom\Functions;
 
 class Discord
 {
-    protected $bot_token = env('DISCORD_BOT_TOKEN');
-    public function join_guild($user_id, $access_token, $guild_id)
+    public static function join_guild($user_id, $access_token, $guild_id)
     {
         $ch = curl_init("https://discord.com/api/guilds/" . $guild_id . "/members/" . $user_id);
         curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
@@ -22,7 +21,7 @@ class Discord
         curl_close($ch);
     }
 
-    public function add_role($user_id, $guild_id, $role_id)
+    public static function add_role($user_id, $guild_id, $role_id)
     {
         $ch = curl_init("https://discord.com/api/guilds/" . $guild_id . "/members/" . $user_id . "/roles/" . $role_id);
         curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
@@ -30,14 +29,14 @@ class Discord
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         $headers[] = 'Accept: application/json';
         $headers[] = 'Content-Type: application/json';
-        $headers[] = 'Authorization: Bot ' . $this->bot_token;
+        $headers[] = 'Authorization: Bot ' . env('DISCORD_BOT_TOKEN');
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         $response = curl_exec($ch);
         return json_decode($response);
         curl_close($ch);
     }
 
-    public function check_if_exists_in_guild($user_guilds, $guild_id)
+    public static function check_if_exists_in_guild($user_guilds, $guild_id)
     {
         $isInServer = false;
         foreach ($user_guilds as $guild) {

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use App\Custom\Functions\Discord;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class DiscordController extends Controller
 {
@@ -66,7 +68,6 @@ class DiscordController extends Controller
 
         $userGuilds = Http::withToken($accessTokenData->access_token)->get($this->apiURLBase . "/guilds");
         $userGuilds = json_decode($userGuilds);
-        dd($userGuilds);
 
         $user = User::updateOrCreate(
             [
@@ -80,12 +81,12 @@ class DiscordController extends Controller
             ]
         );
 
+        if (!Discord::check_if_exists_in_guild($userGuilds, env('DISCORD_SERVER_ID'))) {
+            Discord::join_guild($userData->id, $accessTokenData->access_token, env('DISCORD_SERVER_ID'));
+            Discord::add_role($userData->id, env('DISCORD_SERVER_ID'), env('DISCORD_AUTO_ROLE_ID'));
+        }
 
-
-        // // let the user join the falixnodes discord server (if not already joined) and add the role to him/her (if not already added)
-
-        // JoinGuild($user->id, $discord['autojoin_guildid'], $discord['autojoin_role'], $discord['bot_token']);
-        // AddRoleToGuildMember($user->id, $discord['autojoin_guildid'], $discord['autojoin_role'], $discord['bot_token']);
+        Session::put('access_token', $accessTokenData->access_token);
 
         Auth::login($user);
 

@@ -18,9 +18,17 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'discord_id',
         'email',
-        'password',
+        'username',
+        'discriminator',
+        'refresh_token',
+        'type',
+        'ram_balance',
+        'disk_balance',
+        'cpu_balance',
+        'slot_balance',
+        'coin_balance',
     ];
 
     /**
@@ -29,8 +37,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'refresh_token',
     ];
 
     /**
@@ -38,7 +45,5 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected $casts = [];
 }
