@@ -29,6 +29,7 @@ class User extends Authenticatable
         'cpu_balance',
         'slot_balance',
         'coin_balance',
+        'panel_acc',
     ];
 
     /**

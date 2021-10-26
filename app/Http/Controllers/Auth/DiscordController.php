@@ -9,6 +9,7 @@ use App\Custom\Functions\Discord;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use App\Custom\Functions\Pterodactyl;
 use Illuminate\Support\Facades\Session;
 
 class DiscordController extends Controller
@@ -49,7 +50,7 @@ class DiscordController extends Controller
         $this->tokenData["client_id"] = env("DISCORD_CLIENT_ID");
         $this->tokenData["client_secret"] = env("DISCORD_CLIENT_SECRET");
         $this->tokenData["code"] = $request->get("code");
-        $this->tokenData["redirect_uri"] = env("DISCORD_REDIRECT_URI");
+        $this->tokenData["redirect_uri"] = env('APP_URL') . '/login/token';
 
         $client = new Client();
 
@@ -81,7 +82,7 @@ class DiscordController extends Controller
             ]
         );
 
-        if (!Discord::check_if_exists_in_guild($userGuilds, env('DISCORD_SERVER_ID'))) {
+        if (Discord::check_if_exists_in_guild($userGuilds, env('DISCORD_SERVER_ID') == false)) {
             Discord::join_guild($userData->id, $accessTokenData->access_token, env('DISCORD_SERVER_ID'));
             Discord::add_role($userData->id, env('DISCORD_SERVER_ID'), env('DISCORD_AUTO_ROLE_ID'));
         }
@@ -90,7 +91,17 @@ class DiscordController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route("dashboard");
+        $pterodactyl_information = [];
+        if ($user->panel_acc == null || $user->panel_acc == 0) {
+            // Create pterodactyl account
+            $pterodactyl_information = Pterodactyl::create_user($user);
+        }
+
+        if ($pterodactyl_information != null || $pterodactyl_information != false) {
+            return redirect()->route("dashboard")->with('pterodactyl_information', $pterodactyl_information);
+        } else {
+            return redirect()->route("dashboard");
+        }
     }
 
     public function logout(Request $request)
