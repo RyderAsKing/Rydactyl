@@ -28,9 +28,15 @@
                         <p id="text18">Hosting was never so easy before. You can deploy your own new server with a few
                             clicks!</p>
                         <ul id="buttons01" class="buttons">
-                            <li><a href="#pricing" class="button n01"><span class="label">Login
+                            @auth
+                            <li><a href="{{ route('dashboard') }}" class="button n01"><span
+                                        class="label">Dashboard</span></a></li>
+                            @endauth
+                            @guest
+                            <li><a href="{{ route('login') }}" class="button n01"><span class="label">Login
                                         Now <img style="height: 20px" src="{{ asset('images/discord.png') }}"
                                             alt=""></span></a></li>
+                            @endguest
                         </ul>
                     </div>
                 </div>
