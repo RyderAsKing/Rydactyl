@@ -21,11 +21,11 @@ class CreateUsersTable extends Migration
             $table->string('discriminator');
             $table->string('refresh_token');
             $table->integer('type')->default(0);
-            $table->integer('ram_balance')->default(0);;
-            $table->integer('disk_balance')->default(0);;
-            $table->integer('cpu_balance')->default(0);;
-            $table->integer('slot_balance')->default(0);;
-            $table->integer('coin_balance')->default(0);;
+            $table->integer('ram_balance')->default(0);
+            $table->integer('disk_balance')->default(0);
+            $table->integer('cpu_balance')->default(0);
+            $table->integer('slot_balance')->default(0);
+            $table->integer('coin_balance')->default(0);
             $table->timestamps();
         });
     }
