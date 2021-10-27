@@ -26,7 +26,7 @@
                     <a class="dropdown-item preview-item">
                         <div class="preview-thumbnail">
                             <div class="preview-icon bg-dark rounded-circle">
-                                <i class="mdi mdi-calendar text-success"></i>
+                                <i class="mdi mdi-alert-circle-outline text-success"></i>
                             </div>
                         </div>
                         <div class="preview-item-content">
