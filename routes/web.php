@@ -29,5 +29,6 @@ Route::middleware([RedirectIfAuthenticated::class])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/notifications', [NotificationController::class, 'index'])->name('notifications');
+    Route::get('/dashboard/notifications/{id}/delete', [NotificationController::class, 'delete'])->name('notifications.delete');
     Route::get('/logout', [DiscordController::class, 'logout'])->name('logout');
 });

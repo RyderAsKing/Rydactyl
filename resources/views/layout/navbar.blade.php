@@ -1,17 +1,16 @@
 @section('navbar')
 <nav class="navbar p-0 fixed-top d-flex flex-row">
-    <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg"
-                alt="logo" /></a>
-    </div>
     <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
             <span class="mdi mdi-menu"></span>
         </button>
         <ul class="navbar-nav navbar-nav-right">
+            @php
+            $notifications = Auth::user()->notifications()->take(3)->get()
+            @endphp
             <li class="nav-item dropdown">
-                <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
-                    data-toggle="dropdown">
+                <a class="nav-link @if(sizeof($notifications) > 1) count-indicator @endif" id="notificationDropdown"
+                    href="#" data-toggle="dropdown">
                     <i class="mdi mdi-bell"></i>
                     <span class="count bg-danger"></span>
                 </a>
@@ -19,34 +18,36 @@
                     aria-labelledby="notificationDropdown">
                     <h6 class="p-3 mb-0">Notifications</h6>
                     <div class="dropdown-divider"></div>
-                    @php
-                    $notifications = Auth::user()->notifications()->take(3)->get()
-                    @endphp
-                    @foreach ($notifications as $notification)
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                            <div class="preview-icon bg-dark rounded-circle">
-                                <i class="mdi mdi-alert-circle-outline text-success"></i>
+
+                    @if(sizeof($notifications) < 1) <p class="p-3 mb-0 text-center">No new notifications</p>
+                        @else @foreach ($notifications as $notification) <a href="{{ route('notifications') }}"
+                            class="dropdown-item preview-item">
+                            <div class="preview-thumbnail">
+                                <div class="preview-icon bg-dark rounded-circle">
+                                    <i class="mdi mdi-alert-circle-outline text-success"></i>
+                                </div>
                             </div>
-                        </div>
-                        <div class="preview-item-content">
-                            <p class="preview-subject mb-1">{{ $notification->title }}</p>
-                            <p class="text-muted ellipsis mb-1"> {{ $notification->message }}</p>
-                            <p class="text-muted ellipsis mb-0 float-right">{{
-                                $notification->created_at->diffForHumans()
-                                }}</p>
-                            </p>
-                        </div>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    @endforeach
-                    <a href="{{ route('notifications') }}" class="text-white">
-                        <p class="p-3 mb-0 text-center">Manage Notifications</p>
-                    </a>
+                            <div class="preview-item-content">
+                                <p class="preview-subject mb-1">{{ $notification->title }}</p>
+                                <p class="text-muted ellipsis mb-1"> {{ $notification->message }}</p>
+                                <p class="text-muted ellipsis mb-0 float-right">{{
+                                    $notification->created_at->diffForHumans()
+                                    }}</p>
+                                </p>
+                            </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        @endforeach
+                        <a href="{{ route('notifications') }}" class="text-white">
+                            <p class="p-3 mb-0 text-center">Manage Notifications</p>
+                        </a>
+                        @endif
+
+
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
+                <a class="nav-link" style="float:right;" id="profileDropdown" href="#" data-toggle="dropdown">
                     <div class="navbar-profile">
                         <img class="img-xs rounded-circle" src={{ 'https://cdn.discordapp.com/avatars/' .
                             Session::get('user')->id . '/' . Session::get('user')->avatar . '.png' }} alt="">

@@ -14,4 +14,10 @@ class NotificationController extends Controller
         $notifications = Auth::user()->notifications()->paginate(10);
         return view('dashboard.notifications')->with('notifications', $notifications);
     }
+
+    public function delete($id)
+    {
+        Auth::user()->notifications()->where(['id' => $id])->delete();
+        return back()->with('message', 'Successfully deleted notification ID: ' . $id);
+    }
 }

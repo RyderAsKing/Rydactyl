@@ -4,7 +4,7 @@
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
         <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
-            <span aria-hidden="true"><button class="btn btn-light"><i
+            <span aria-hidden="true"><button class="btn btn-light" disabled><i
                         class="mdi mdi-skip-previous-circle"></i></button></span>
         </li>
         @else
@@ -43,7 +43,7 @@
         </li>
         @else
         <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
-            <span aria-hidden="true"><button class="btn btn-light"><i
+            <span aria-hidden="true"><button class="btn btn-light" disabled><i
                         class="mdi mdi-skip-next-circle"></i></button></span>
         </li>
         @endif

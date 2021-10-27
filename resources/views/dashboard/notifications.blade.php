@@ -1,7 +1,9 @@
 @extends('layout.app')
+@include('layout.message')
 @section('content')
 <div class="main-panel">
     <div class="content-wrapper">
+        @yield('message')
         <div class="row">
             <div class="col-12">
 
@@ -27,7 +29,8 @@
                                         <td> {{ $notification->title }} </td>
                                         <td> {{ $notification->message }} </td>
                                         <td> {{ $notification->created_at->diffForHumans() }} </td>
-                                        <td> <a href=""><button class="btn btn-danger btn-rounded btn-icon"><i
+                                        <td> <a href="{{ route('notifications.delete', $notification->id) }}"><button
+                                                    class="btn btn-danger btn-rounded btn-icon"><i
                                                         class="mdi mdi-delete"></i></button></a> </td>
                                     </tr>
                                     @endforeach
