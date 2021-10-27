@@ -8,6 +8,7 @@
 <script src={{ asset('vendors/jvectormap/jquery-jvectormap.min.js') }}></script>
 <script src={{ asset('vendors/jvectormap/jquery-jvectormap-world-mill-en.js') }}></script>
 <script src={{ asset('vendors/owl-carousel-2/owl.carousel.min.js') }}></script>
+<script src={{ asset('js/datatables.min.js') }}></script>
 <!-- End plugin js for this page -->
 <!-- inject:js -->
 <script src={{ asset('js/off-canvas.js') }}></script>
