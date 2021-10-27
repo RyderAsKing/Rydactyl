@@ -99,7 +99,8 @@ class DiscordController extends Controller
         }
 
         if ($pterodactyl_information != null || $pterodactyl_information != false) {
-            return redirect()->route("dashboard")->with('pterodactyl_information', $pterodactyl_information);
+            Session::put('pterodactyl_information', $pterodactyl_information);
+            return redirect()->route("dashboard");
         } else {
             return redirect()->route("dashboard");
         }
