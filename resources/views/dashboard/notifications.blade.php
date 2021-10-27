@@ -23,17 +23,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($notifications as $notification)
-                                    <tr>
-                                        <td> {{ $notification->id }} </td>
-                                        <td> {{ $notification->title }} </td>
-                                        <td> {{ $notification->message }} </td>
-                                        <td> {{ $notification->created_at->diffForHumans() }} </td>
-                                        <td> <a href="{{ route('notifications.delete', $notification->id) }}"><button
-                                                    class="btn btn-danger btn-rounded btn-icon"><i
-                                                        class="mdi mdi-delete"></i></button></a> </td>
-                                    </tr>
-                                    @endforeach
+                                    @if(sizeof($notifications) < 1) <tr>
+                                        <td colspan="5" align="center">No new notifications</td>
+                                        </tr>
+                                        @else
+                                        @foreach ($notifications as $notification)
+                                        <tr>
+                                            <td> {{ $notification->id }} </td>
+                                            <td> {{ $notification->title }} </td>
+                                            <td> {{ $notification->message }} </td>
+                                            <td> {{ $notification->created_at->diffForHumans() }} </td>
+                                            <td> <a href="{{ route('notifications.delete', $notification->id) }}"><button
+                                                        class="btn btn-danger btn-rounded btn-icon"><i
+                                                            class="mdi mdi-delete"></i></button></a> </td>
+                                        </tr>
+                                        @endforeach
+                                        @endif
                                 </tbody>
                             </table>
                         </div>
