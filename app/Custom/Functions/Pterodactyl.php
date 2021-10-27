@@ -2,11 +2,12 @@
 
 namespace App\Custom\Functions;
 
+use App\Models\User;
 use Illuminate\Support\Str;
 
 class Pterodactyl
 {
-    public static function create_user($user)
+    public static function create_user(User $user)
     {
         $pterodactyl_username = strtolower(Str::random(7));
         $pterodactyl_password = Str::random(16);

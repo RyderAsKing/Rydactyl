@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Notification;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -47,4 +48,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [];
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
 }

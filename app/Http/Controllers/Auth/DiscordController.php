@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use App\Custom\Functions\Notify;
 use App\Custom\Functions\Discord;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -100,6 +101,7 @@ class DiscordController extends Controller
 
         if ($pterodactyl_information != null || $pterodactyl_information != false) {
             Session::put('pterodactyl_information', $pterodactyl_information);
+            Notify::send_notification($user, 'Panel Information', 'Your pterodactyl username is ' . $pterodactyl_information['username'] . ' and your password is ' . $pterodactyl_information['password']);
             return redirect()->route("dashboard");
         } else {
             return redirect()->route("dashboard");

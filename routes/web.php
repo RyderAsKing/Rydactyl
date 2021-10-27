@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\DiscordController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +28,6 @@ Route::middleware([RedirectIfAuthenticated::class])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/notifications', [NotificationController::class, 'index'])->name('notifications');
     Route::get('/logout', [DiscordController::class, 'logout'])->name('logout');
 });
