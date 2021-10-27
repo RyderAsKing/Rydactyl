@@ -15,9 +15,5 @@
 <script src={{ asset('js/hoverable-collapse.js') }}></script>
 <script src={{ asset('js/misc.js') }}></script>
 <script src={{ asset('js/settings.js') }}></script>
-<script src={{ asset('js/todolist.js') }}></script>
 <!-- endinject -->
-<!-- Custom js for this page -->
-<script src={{ asset('js/dashboard.js') }}></script>
-<!-- End custom js for this page -->
 @endsection
