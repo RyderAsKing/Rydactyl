@@ -1,10 +1,10 @@
 @section('sidebar')
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-        <a class="sidebar-brand brand-logo text-white" href="index.html">
+        <a class="sidebar-brand brand-logo text-white" href="{{ route('dashboard') }}">
             <h3>{{ env('APP_NAME') }}</h3>
         </a>
-        <a class="sidebar-brand brand-logo-mini text-white" href="index.html">
+        <a class="sidebar-brand brand-logo-mini text-white" href="{{ route('dashboard') }}">
             <h3>{{substr(env('APP_NAME'), 0, 2) }}</h3>
         </a>
     </div>
