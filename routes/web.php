@@ -35,5 +35,5 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth.admin'])->group(function () {
-    Route::get('/dashboard/admin', [AdminController::class, 'index'])->name('dashboard.admin');
+    Route::get('/dashboard/users', [AdminController::class, 'index'])->name('dashboard.users');
 });
