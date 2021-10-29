@@ -11,7 +11,7 @@ class NotificationController extends Controller
     //
     public function index(Request $request)
     {
-        $notifications = Auth::user()->notifications()->paginate(10);
+        $notifications = Auth::user()->notifications()->get();
         return view('dashboard.notifications')->with('notifications', $notifications);
     }
 

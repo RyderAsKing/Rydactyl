@@ -34,7 +34,7 @@
                                             <td> {{ $notification->username }} </td>
                                             <td> {{ $notification->coin_balance }} </td>
                                             <td> {{ $notification->created_at->diffForHumans() }} </td>
-                                            <td> <a href=""><button class="btn btn-danger btn-rounded btn-icon"><i
+                                            <td> <a href=""><button class="btn btn-danger"><i
                                                             class="mdi mdi-delete"></i></button></a> </td>
                                         </tr>
                                         @endforeach

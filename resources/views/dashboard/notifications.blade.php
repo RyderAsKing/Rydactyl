@@ -12,7 +12,7 @@
                         <h4 class="card-title">Notifications</h4>
                         </p>
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" id="notifications-table">
                                 <thead>
                                     <tr>
                                         <th> # </th>
@@ -34,7 +34,7 @@
                                             <td> {{ $notification->message }} </td>
                                             <td> {{ $notification->created_at->diffForHumans() }} </td>
                                             <td> <a href="{{ route('notifications.delete', $notification->id) }}"><button
-                                                        class="btn btn-danger btn-rounded btn-icon"><i
+                                                        class="btn btn-danger"><i
                                                             class="mdi mdi-delete"></i></button></a> </td>
                                         </tr>
                                         @endforeach
@@ -42,13 +42,15 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="float-right" style="margin-top: 10px;">
-                            {{ $notifications->onEachSide(5)->links() }}
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready( function () {
+        $('#notifications-table').DataTable();
+        });
+</script>
 @endsection
