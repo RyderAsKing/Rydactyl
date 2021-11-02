@@ -12,6 +12,12 @@ class AdminController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('dashboard.admin.users', ['users' => $users]);
+        return view('dashboard.users.index', ['users' => $users]);
+    }
+
+    public function manage($id)
+    {
+        $user = User::where(['id' => $id])->firstOrFail();
+        return view('dashboard.users.manage', ['user' => $user]);
     }
 }

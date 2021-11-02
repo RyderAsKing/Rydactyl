@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Custom\Functions\Notify;
 use App\Custom\Functions\Discord;
 use App\Http\Controllers\Controller;
@@ -92,6 +93,9 @@ class DiscordController extends Controller
         Session::put('user', $userData);
 
         Auth::login($user);
+
+        $user->last_login = Carbon::now();
+        $user->save();
 
         $pterodactyl_information = [];
         if ($user->panel_acc == null || $user->panel_acc == 0) {

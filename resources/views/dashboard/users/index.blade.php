@@ -1,6 +1,5 @@
 @extends('layout.app')
 @include('layout.message')
-@include('layout.footer')
 @section('content')
 <div class="main-panel">
     <div class="content-wrapper">
@@ -43,11 +42,13 @@
                                             <td> {{ $user->slot_balance }} </td>
                                             <td> {{ $user->total_ram_balance - $user->ram_balance }}
                                             </td>
-                                            <td> @if($user->type != 1) <a
+                                            <td> @if($user->id == Auth::user()->id) @else <a
                                                     href="{{ route('dashboard.users.delete', $user->id) }}"><button
                                                         class="btn btn-danger"><i
-                                                            class="mdi mdi-delete"></i></button></a> @else <span
-                                                    class="badge badge-success">Admin</span> @endif </td>
+                                                            class="mdi mdi-delete"></i></button></a> @endif <a
+                                                    href="{{ route('dashboard.users.manage', $user->id) }}"><button
+                                                        class="btn btn-warning"><i
+                                                            class="mdi mdi-table-edit"></i></button></a></td>
                                         </tr>
                                         @endforeach
                                         @endif

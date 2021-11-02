@@ -31,6 +31,7 @@ class User extends Authenticatable
         'slot_balance',
         'coin_balance',
         'panel_acc',
+        'last_login',
     ];
 
     /**
@@ -40,6 +41,10 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'refresh_token',
+    ];
+
+    protected $dates = [
+        'last_login'
     ];
 
     /**

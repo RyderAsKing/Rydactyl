@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth.admin'])->group(function () {
     Route::get('/dashboard/users', [AdminController::class, 'index'])->name('dashboard.users');
-    Route::get('/dashboard/users/{id}', [AdminController::class, 'index'])->name('dashboard.users.manage');
+    Route::get('/dashboard/users/{id}', [AdminController::class, 'manage'])->name('dashboard.users.manage');
     Route::get('/dashboard/users/{id}/suspend', [AdminController::class, 'index'])->name('dashboard.users.suspend');
     Route::get('/dashboard/users/{id}/delete', [AdminController::class, 'index'])->name('dashboard.users.delete');
 });
