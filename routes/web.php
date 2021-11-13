@@ -41,5 +41,7 @@ Route::middleware(['auth.admin'])->group(function () {
     Route::get('/dashboard/users/{id}/delete', [AdminController::class, 'index'])->name('dashboard.users.delete');
 
     Route::get('/dashboard/nodes/', [AdminController::class, 'nodes'])->name('dashboard.nodes');
+    Route::get('/dashboard/nodes/add', [AdminController::class, 'node_add'])->name('dashboard.nodes.add');
+    Route::post('/dashboard/nodes/add', [AdminController::class, 'node_add_store']);
     Route::get('/dashboard/nodes/{id}', [AdminController::class, 'node_manage'])->name('dashboard.nodes.manage');
 });
