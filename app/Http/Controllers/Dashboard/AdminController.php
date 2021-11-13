@@ -29,6 +29,12 @@ class AdminController extends Controller
         return view('dashboard.nodes.index', ['nodes' => $nodes]);
     }
 
+    public function node_add()
+    {
+        $nodes = Pterodactyl::get_nodes();
+        return view('dashboard.nodes.add', ['nodes' => $nodes['nodes']]);
+    }
+
     public function node_manage($id)
     {
         $node = Node::where(['id' => $id])->firstOrFail();
