@@ -18,6 +18,8 @@ class AddMoreColumnsToNodes extends Migration
             $table->string('uuid');
             $table->string('node_fqdn');
             $table->string('description');
+            $table->integer('memory_allocated');
+            $table->integer('disk_allocated');
         });
     }
 
@@ -33,6 +35,8 @@ class AddMoreColumnsToNodes extends Migration
             $table->dropColumn('uuid');
             $table->dropColumn('node_fqdn');
             $table->dropColumn('description');
+            $table->dropColumn('memory_allocated');
+            $table->dropColumn('disk_allocated');
         });
     }
 }
