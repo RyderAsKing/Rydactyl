@@ -36,4 +36,29 @@ class Pterodactyl
             return false;
         }
     }
+
+    public static function get_nodes()
+    {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, "https://" . env('PTERODACTYL_FQDN') . "/api/application/nodes");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+
+
+        $headers = array();
+        $headers[] = 'Accept: application/json';
+        $headers[] = 'Content-Type: application/json';
+        $headers[] = 'Authorization: Bearer ' . env('PTERODACTYL_APPLICATION_KEY');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $pterodactyl_result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close($ch);
+        $pterodactyl_result = json_decode($pterodactyl_result, true);
+        $nodes = $pterodactyl_result['data'];
+        return array('nodes' => $nodes);
+    }
 }
