@@ -99,9 +99,23 @@
                     </div>
                 </div>
             </div>
+            <div class="col-3 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4 class="card-title">Suspend user account</h4>
+                                <p class="card-description"> This will suspend the user. Including all the servers the
+                                    user owns.
+                                </p>
+                                <button type="submit" class="btn btn-warning mb-2">Suspend user</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<script>
-</script>
-@endsection
+    <script>
+    </script>
+    @endsection
