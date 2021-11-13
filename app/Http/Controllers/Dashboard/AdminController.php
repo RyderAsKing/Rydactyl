@@ -35,6 +35,12 @@ class AdminController extends Controller
         return view('dashboard.nodes.add', ['nodes' => $nodes['nodes']]);
     }
 
+    public function node_add_store(Request $request)
+    {
+        $this->validate($request, ['node_name' => 'required|max:128', 'node_description' => 'required|max:256', 'node_id' => 'required|numeric', 'slots' => 'required|numeric|min:0']);
+
+        return back();
+    }
     public function node_manage($id)
     {
         $node = Node::where(['id' => $id])->firstOrFail();

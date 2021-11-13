@@ -20,34 +20,49 @@
                         <p class="card-description"> The nodes are auto fetched from the panel, choose the one that you
                             want to add.
                         </p>
-                        <div class="form-group">
-                            <label for="node_select">Select target</label>
-                            <select class="form-control form-control-lg mb-3" id="node_select">
+                        <form class="form-group" method="post" action={{ route('dashboard.nodes.add') }}>
+                            @csrf
+                            <label for="node_id">Select target</label>
+                            <select class="form-control form-control-lg mb-3" id="node_id" name="node_id">
                                 @foreach ($nodes as $node)
-                                <option>Location ID: {{ $node['attributes']['location_id'] }} | {{
+                                <option value="asd">Location ID: {{ $node['attributes']['location_id'] }} | {{
                                     $node['attributes']['name'] }} | Memory: {{ $node['attributes']['memory']}} | Disk:
                                     {{ $node['attributes']['disk']}}</option>
                                 @endforeach
                             </select>
-                            <form class="forms-sample">
-                                <div class="form-group">
-                                    <label for="node_name">Name</label>
-                                    <input type="text" class="form-control" id="node_name"
-                                        placeholder="Name of the node (Displayed when deploying a server)">
-                                </div>
-                                <div class="form-group">
-                                    <label for="node_description">Description</label>
-                                    <input type="text" class="form-control" id="node_description"
-                                        placeholder="Processor name perhaps?">
-                                </div>
-                                <div class="form-group">
-                                    <label for="node_slots">Slots</label>
-                                    <input type="number" class="form-control" id="node_slots"
-                                        placeholder="How many servers can be created on this node?" min="0">
-                                </div>
-                                <button type="submit" class="btn btn-success mr-2">+ Add node</button>
-                            </form>
-                        </div>
+                            @error('node_id')
+                            <p>{{ $message }}</p>
+                            @enderror
+
+                            <div class="form-group">
+                                <label for="node_name">Name</label>
+                                <input type="text" class="form-control" id="node_name" name="node_name"
+                                    placeholder="Name of the node (Displayed when deploying a server)">
+                            </div>
+                            @error('node_name')
+                            <p>{{ $message }}</p>
+                            @enderror
+
+                            <div class="form-group">
+                                <label for="node_description">Description</label>
+                                <input type="text" class="form-control" id="node_description" name="node_description"
+                                    placeholder="Processor name perhaps?">
+                            </div>
+                            @error('node_description')
+                            <p>{{ $message }}</p>
+                            @enderror
+
+                            <div class="form-group">
+                                <label for="node_slots">Slots</label>
+                                <input type="number" class="form-control" id="node_slots" name="node_slots"
+                                    placeholder="How many servers can be created on this node?" min="0">
+                            </div>
+                            @error('node_slots')
+                            <p>{{ $message }}</p>
+                            @enderror
+
+                            <button type="submit" class="btn btn-success mr-2">+ Add node</button>
+                        </form>
                     </div>
                 </div>
             </div>
