@@ -6,11 +6,9 @@
         @yield('message')
         <div class="row">
             <div class="col-12">
-
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Users</h4>
-                        </p>
                         <div class="table-responsive">
                             <table class="table table-bordered" id="users-table" style="margin-bottom: 15px">
                                 <thead>

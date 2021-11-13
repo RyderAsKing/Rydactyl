@@ -45,6 +45,16 @@
             </a>
         </li>
         @endif
+        @if(Auth::user()->type == 1)
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="{{ route('dashboard.nodes') }}">
+                <span class="menu-icon">
+                    <i class="mdi mdi-server"></i>
+                </span>
+                <span class="menu-title">Nodes</span>
+            </a>
+        </li>
+        @endif
     </ul>
 </nav>
 @endsection
