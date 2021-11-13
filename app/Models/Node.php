@@ -16,5 +16,9 @@ class Node extends Model
         'slots',
         'slots_used',
         'type', // 0 = for users
+        'uuid',
+        'node_fqdn',
+        'memory_allocated',
+        'disk_allocated',
     ];
 }
