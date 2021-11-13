@@ -32,13 +32,13 @@ class AdminController extends Controller
     public function node_add()
     {
         $nodes = Pterodactyl::get_nodes();
-        return view('dashboard.nodes.add', ['nodes' => $nodes['nodes']]);
+        return view('dashboard.nodes.add', $nodes);
     }
 
     public function node_add_store(Request $request)
     {
-        $this->validate($request, ['node_name' => 'required|max:128', 'node_description' => 'required|max:256', 'node_id' => 'required|numeric|unique:nodes,node_id', 'slots' => 'required|numeric|min:0']);
-
+        $this->validate($request, ['node_name' => 'required|max:128', 'node_description' => 'required|max:256', 'node_id' => 'required|numeric|unique:nodes,node_id', 'node_slots' => 'required|numeric|min:0']);
+        $node = Pterodactyl::get_node($request->node_id); // TODO: add into database
         return back();
     }
     public function node_manage($id)

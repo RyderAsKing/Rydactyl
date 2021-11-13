@@ -25,7 +25,8 @@
                             <label for="node_id">Select target</label>
                             <select class="form-control form-control-lg mb-3" id="node_id" name="node_id">
                                 @foreach ($nodes as $node)
-                                <option value="asd">Location ID: {{ $node['attributes']['location_id'] }} | {{
+                                <option value={{ $node['attributes']['id'] }}>Location ID: {{
+                                    $node['attributes']['location_id'] }} | {{
                                     $node['attributes']['name'] }} | Memory: {{ $node['attributes']['memory']}} | Disk:
                                     {{ $node['attributes']['disk']}}</option>
                                 @endforeach
