@@ -37,7 +37,7 @@ class AdminController extends Controller
 
     public function node_add_store(Request $request)
     {
-        $this->validate($request, ['node_name' => 'required|max:128', 'node_description' => 'required|max:256', 'node_id' => 'required|numeric', 'slots' => 'required|numeric|min:0']);
+        $this->validate($request, ['node_name' => 'required|max:128', 'node_description' => 'required|max:256', 'node_id' => 'required|numeric|unique:nodes,node_id', 'slots' => 'required|numeric|min:0']);
 
         return back();
     }

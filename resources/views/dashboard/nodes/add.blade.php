@@ -37,7 +37,8 @@
                             <div class="form-group">
                                 <label for="node_name">Name</label>
                                 <input type="text" class="form-control" id="node_name" name="node_name"
-                                    placeholder="Name of the node (Displayed when deploying a server)">
+                                    placeholder="Name of the node (Displayed when deploying a server)" value={{
+                                    old('node_name') }}>
                             </div>
                             @error('node_name')
                             <p>{{ $message }}</p>
@@ -46,7 +47,7 @@
                             <div class="form-group">
                                 <label for="node_description">Description</label>
                                 <input type="text" class="form-control" id="node_description" name="node_description"
-                                    placeholder="Processor name perhaps?">
+                                    placeholder="Processor name perhaps?" value={{ old('node_description') }}>
                             </div>
                             @error('node_description')
                             <p>{{ $message }}</p>
@@ -55,7 +56,8 @@
                             <div class="form-group">
                                 <label for="node_slots">Slots</label>
                                 <input type="number" class="form-control" id="node_slots" name="node_slots"
-                                    placeholder="How many servers can be created on this node?" min="0">
+                                    placeholder="How many servers can be created on this node?" min="0" value={{
+                                    old('node_slots') }}>
                             </div>
                             @error('node_slots')
                             <p>{{ $message }}</p>
