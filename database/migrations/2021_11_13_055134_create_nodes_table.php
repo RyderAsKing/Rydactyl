@@ -16,7 +16,7 @@ class CreateNodesTable extends Migration
         Schema::create('nodes', function (Blueprint $table) {
             $table->id();
             $table->string('panel_fqdn');
-            $table->integer('node_id');
+            $table->integer('node_id'); // location of the node
             $table->string('name');
             $table->integer('slots');
             $table->integer('slots_used');
