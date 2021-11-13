@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Custom\Functions\Pterodactyl;
 
 class AdminController extends Controller
 {
