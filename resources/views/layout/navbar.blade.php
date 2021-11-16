@@ -9,7 +9,7 @@
             $notifications = Auth::user()->notifications()->take(3)->get()
             @endphp
             <li class="nav-item dropdown">
-                <a class="nav-link @if(sizeof($notifications) > 1) count-indicator @endif" id="notificationDropdown"
+                <a class="nav-link @if(sizeof($notifications) > 0) count-indicator @endif" id="notificationDropdown"
                     href="#" data-toggle="dropdown">
                     <i class="mdi mdi-bell"></i>
                     <span class="count bg-danger"></span>
@@ -20,7 +20,8 @@
                     <div class="dropdown-divider"></div>
 
                     @if(sizeof($notifications) < 1) <p class="p-3 mb-0 text-center">No new notifications</p>
-                        @else @foreach ($notifications as $notification) <a href="{{ route('notifications') }}"
+                        @else @foreach ($notifications as $notification) <a
+                            href="{{ route('notifications.view', $notification->id) }}"
                             class="dropdown-item preview-item">
                             <div class="preview-thumbnail">
                                 <div class="preview-icon bg-dark rounded-circle">

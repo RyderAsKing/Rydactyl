@@ -1,8 +1,10 @@
 @extends('layout.app')
+@include('layout.message')
 @section('content')
 <!-- partial -->
 <div class="main-panel">
     <div class="content-wrapper">
+        @yield('message')
         <div class="row">
             @if($pterodactyl_information != null)
             <div class="col-12 grid-margin stretch-card">

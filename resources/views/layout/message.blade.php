@@ -10,7 +10,7 @@
                             alt="">
                     </div>
                     <div class="col-5 col-sm-7 col-xl-8 p-0">
-                        <p class="mb-0 font-weight-normal d-none d-sm-block">{{ session('message') }}
+                        <p class="mb-0 font-weight-normal d-none d-sm-block">{!! session('message') !!}
                         </p>
                     </div>
                 </div>

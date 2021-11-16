@@ -36,8 +36,11 @@
                                             </td>
                                             <td> {{ $notification->created_at->diffForHumans() }} </td>
                                             <td> <a href="{{ route('notifications.delete', $notification->id) }}"><button
-                                                        class="btn btn-danger"><i
-                                                            class="mdi mdi-delete"></i></button></a> </td>
+                                                        class="btn btn-danger"><i class="mdi mdi-delete"></i>
+                                                        Delete</button></a> <a
+                                                    href="{{ route('notifications.view', $notification->id) }}"><button
+                                                        class="btn btn-info"><i class="mdi mdi-airplay"></i>
+                                                        View</button></a> </td>
                                         </tr>
                                         @endforeach
                                         @endif
