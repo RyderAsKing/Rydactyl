@@ -18,7 +18,7 @@
                                         <th> # </th>
                                         <th> Title </th>
                                         <th> Message </th>
-                                        <th> Created at </th>
+                                        <th> Received </th>
                                         <th> Remove </th>
                                     </tr>
                                 </thead>
@@ -30,8 +30,10 @@
                                         @foreach ($notifications as $notification)
                                         <tr>
                                             <td> {{ $notification->id }} </td>
-                                            <td> {{ $notification->title }} </td>
-                                            <td> {{ $notification->message }} </td>
+                                            <td>
+                                                {{ $notification->title }} </td>
+                                            <td> {{ Str::limit($notification->message, $limit = 64, $end = '...') }}
+                                            </td>
                                             <td> {{ $notification->created_at->diffForHumans() }} </td>
                                             <td> <a href="{{ route('notifications.delete', $notification->id) }}"><button
                                                         class="btn btn-danger"><i
