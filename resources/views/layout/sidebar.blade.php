@@ -35,7 +35,7 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
-        @if(Auth::user()->type == 1)
+        @can('admin-content')
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{ route('dashboard.users') }}">
                 <span class="menu-icon">
@@ -44,8 +44,8 @@
                 <span class="menu-title">Users</span>
             </a>
         </li>
-        @endif
-        @if(Auth::user()->type == 1)
+        @endcan
+        @can('admin-content')
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{ route('dashboard.nodes') }}">
                 <span class="menu-icon">
@@ -54,7 +54,7 @@
                 <span class="menu-title">Nodes</span>
             </a>
         </li>
-        @endif
+        @endcan
     </ul>
 </nav>
 @endsection
