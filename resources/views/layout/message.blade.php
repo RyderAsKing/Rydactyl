@@ -6,7 +6,8 @@
             <div class="card-body py-0 px-0 px-sm-3">
                 <div class="row align-items-center">
                     <div class="col-4 col-sm-3 col-xl-2">
-                        <img src={{ asset('images/dashboard/checklist.png') }} class="gradient-corona-img img-fluid"
+                        <img style="margin-left: 15px; padding: 5px" src={{
+                            asset('images/file-icons/512/008-archive.png') }} class="gradient-corona-img img-fluid"
                             alt="">
                     </div>
                     <div class="col-5 col-sm-7 col-xl-8 p-0">
