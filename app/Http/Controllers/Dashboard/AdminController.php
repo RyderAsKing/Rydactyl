@@ -61,7 +61,7 @@ class AdminController extends Controller
 
     public function nest_add()
     {
-        $nests = Pterodactyl::nests()['data'];
+        $nests = Pterodactyl::get_nests()['data'];
         return view('dashboard.nests.add', ['nests' => $nests]);
     }
 
