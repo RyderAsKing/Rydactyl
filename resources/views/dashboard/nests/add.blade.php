@@ -22,15 +22,15 @@
                         </p>
                         <form class="form-group" method="post" action={{ route('dashboard.nests.add') }}>
                             @csrf
-                            <label for="node_id">Select target</label>
-                            <select class="form-control form-control-lg mb-3" id="node_id" name="node_id">
+                            <label for="nest_id">Select target</label>
+                            <select class="form-control form-control-lg mb-3" id="nest_id" name="nest_id">
                                 @foreach ($nests as $nest)
                                 <option value={{ $nest['attributes']['id'] }}>Nest ID: {{
                                     $nest['attributes']['id'] }} | {{
                                     $nest['attributes']['name'] }}</option>
                                 @endforeach
                             </select>
-                            @error('node_id')
+                            @error('nest_id')
                             <p>{{ $message }}</p>
                             @enderror
                             <button type="submit" class="btn btn-success mr-2">+ Add nest</button>
