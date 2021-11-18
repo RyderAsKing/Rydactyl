@@ -10,6 +10,13 @@ class Nest extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nest_id',
+        'name',
+        'description',
+        'uuid',
+    ];
+
     public function egg()
     {
         return $this->hasMany(Egg::class);

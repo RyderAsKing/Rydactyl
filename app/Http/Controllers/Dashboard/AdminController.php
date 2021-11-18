@@ -56,7 +56,7 @@ class AdminController extends Controller
     // Nests
     public function nests()
     {
-        $nests = Nest::all();
+        $nests = Nest::with('egg')->get();
         return view('dashboard.nests.index', ['nests' => $nests]);
     }
 
@@ -70,8 +70,8 @@ class AdminController extends Controller
     {
         $this->validate($request, ['nest_id' => 'required|numeric|unique:nests,nest_id']);
         $nest = Pterodactyl::get_nest($request->nest_id);
-        Nest::create(['nest_id' => $request->nest_id, 'name' => $nest['attribute']['name'], 'description' => $nest['attribute']['description'], 'uuid' => $nest['attribute']['uuid']]);
-        return redirect()->route("dashboard.nests.add")->with('message', 'Nest haas been added successfully');
+        Nest::create(['nest_id' => $request->nest_id, 'name' => $nest['attributes']['name'], 'description' => $nest['attributes']['description'], 'uuid' => $nest['attributes']['uuid']]);
+        return redirect()->route("dashboard.nests.add")->with('message', 'Nest has been added successfully');
     }
 
     public function nest_manage($id)
@@ -99,7 +99,7 @@ class AdminController extends Controller
         $this->validate($request, ['egg_name' => 'required|max:128', 'egg_description' => 'required|max:256', 'egg_id' => 'required|numeric|unique:eggs,egg_id', 'egg_slots' => 'required|numeric|min:0']);
         $egg = Pterodactyl::get_egg($request->egg_id);
         Egg::create(['name' => $request->egg_name, 'description' => $request->egg_description, 'slots' => $request->egg_slots, 'slots_used' => 0, 'type' => 0, 'panel_fqdn' => env('PTERODACTYL_FQDN'), 'egg_id' => $egg['attributes']['id'], 'uuid' => $egg['attributes']['uuid'], 'memory_allocated' => 0, 'disk_allocated' => 0, 'egg_fqdn' => $egg['attributes']['fqdn']]);
-        return redirect()->route("dashboard.eggs.add")->with('message', 'Egg haas been added successfully');
+        return redirect()->route("dashboard.eggs.add")->with('message', 'Egg has been added successfully');
     }
 
     public function egg_manage($id)

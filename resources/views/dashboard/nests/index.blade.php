@@ -33,7 +33,7 @@
                                             <td> {{ $nest->id }} </td>
                                             <td> {{ $nest->name }} </td>
                                             <td> {{ $nest->description }} </td>
-                                            <td> {{ $nest->eggs()->get()->count() }} </td>
+                                            <td> {{ $nest->egg->count() }} </td>
                                             <td> <a href="{{ route('dashboard.nests.manage', $nest->id) }}"><button
                                                         class="btn btn-warning"><i
                                                             class="mdi mdi-table-edit"></i></button></a>
