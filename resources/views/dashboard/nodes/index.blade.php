@@ -17,7 +17,7 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Panel FQDN</th>
+                                        <th>Node FQDN</th>
                                         <th>Slots</th>
                                         <th>Slots Used</th>
                                         <th>Slots Remaining</th>
@@ -32,7 +32,7 @@
                                         @foreach ($nodes as $node)
                                         <tr>
                                             <td> {{ $node->name }} </td>
-                                            <td> {{ $node->panel_fqdn }} </td>
+                                            <td> {{ $node->node_fqdn }} </td>
                                             <td> {{ $node->slots }} </td>
                                             <td> {{ $node->slots_used }} </td>
                                             <td> {{ $node->slots - $node->slots_used }} </td>

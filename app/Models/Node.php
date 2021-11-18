@@ -20,5 +20,6 @@ class Node extends Model
         'node_fqdn',
         'memory_allocated',
         'disk_allocated',
+        'description',
     ];
 }
