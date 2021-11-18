@@ -55,7 +55,7 @@
         </li>
 
         <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('dashboard.nodes') }}">
+            <a class="nav-link" href="{{ route('dashboard.nests') }}">
                 <span class="menu-icon">
                     <i class="mdi mdi-animation"></i>
                 </span>
@@ -64,7 +64,7 @@
         </li>
 
         <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('dashboard.nodes') }}">
+            <a class="nav-link" href="{{ route('dashboard.eggs') }}">
                 <span class="menu-icon">
                     <i class="mdi mdi-arrange-bring-to-front"></i>
                 </span>
