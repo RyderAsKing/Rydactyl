@@ -9,36 +9,32 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Nodes <a href="{{ route('dashboard.nodes.add') }}"> <button type="submit"
+                        <h4 class="card-title">Nests <a href="{{ route('dashboard.nests.add') }}"> <button type="submit"
                                     class="btn btn-success mb-2 float-right">+
-                                    Add node</button></a></h4>
+                                    Add nest</button></a></h4>
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="nodes-table" style="margin-bottom: 15px">
+                            <table class="table table-bordered" id="nests-table" style="margin-bottom: 15px">
                                 <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Node FQDN</th>
-                                        <th>Slots</th>
-                                        <th>Slots Used</th>
-                                        <th>Slots Remaining</th>
+                                        <th>Description</th>
+                                        <th>Eggs</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if(sizeof($nodes) < 1) <tr>
-                                        <td colspan="6" align="center">No nodes</td>
+                                    @if(sizeof($nests) < 1) <tr>
+                                        <td colspan="6" align="center">No nests</td>
                                         </tr>
                                         @else
-                                        @foreach ($nodes as $node)
+                                        @foreach ($nests as $nest)
                                         <tr>
-                                            <td> {{ $node->id }} </td>
-                                            <td> {{ $node->name }} </td>
-                                            <td> {{ $node->node_fqdn }} </td>
-                                            <td> {{ $node->slots }} </td>
-                                            <td> {{ $node->slots_used }} </td>
-                                            <td> {{ $node->slots - $node->slots_used }} </td>
-                                            <td> <a href="{{ route('dashboard.nodes.manage', $node->id) }}"><button
+                                            <td> {{ $nest->id }} </td>
+                                            <td> {{ $nest->name }} </td>
+                                            <td> {{ $nest->description }} </td>
+                                            <td> {{ $nest->eggs()->get()->count() }} </td>
+                                            <td> <a href="{{ route('dashboard.nests.manage', $nest->id) }}"><button
                                                         class="btn btn-warning"><i
                                                             class="mdi mdi-table-edit"></i></button></a>
                                             </td>
@@ -56,7 +52,7 @@
 </div>
 <script>
     $(document).ready( function () {
-        $('#nodes-table').DataTable();
+        $('#nests-table').DataTable();
     });
 </script>
 @endsection
