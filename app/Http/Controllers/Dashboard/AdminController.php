@@ -45,6 +45,7 @@ class AdminController extends Controller
         Node::create(['name' => $request->node_name, 'description' => $request->node_description, 'slots' => $request->node_slots, 'slots_used' => 0, 'type' => 0, 'panel_fqdn' => env('PTERODACTYL_FQDN'), 'node_id' => $node['attributes']['id'], 'uuid' => $node['attributes']['uuid'], 'memory_allocated' => 0, 'disk_allocated' => 0, 'node_fqdn' => $node['attributes']['fqdn']]);
         return redirect()->route("dashboard.nodes.add")->with('message', 'Node has been added successfully');
     }
+
     public function node_manage($id)
     {
         $node = Node::where(['id' => $id])->firstOrFail();
@@ -67,11 +68,12 @@ class AdminController extends Controller
 
     public function nest_add_store(Request $request)
     {
-        $this->validate($request, ['nest_name' => 'required|max:128', 'nest_description' => 'required|max:256', 'nest_id' => 'required|numeric|unique:nests,nest_id', 'nest_slots' => 'required|numeric|min:0']);
+        $this->validate($request, ['nest_id' => 'required|numeric|unique:nests,nest_id']);
         $nest = Pterodactyl::get_nest($request->nest_id);
-        Nest::create(['name' => $request->nest_name, 'description' => $request->nest_description, 'slots' => $request->nest_slots, 'slots_used' => 0, 'type' => 0, 'panel_fqdn' => env('PTERODACTYL_FQDN'), 'nest_id' => $nest['attributes']['id'], 'uuid' => $nest['attributes']['uuid'], 'memory_allocated' => 0, 'disk_allocated' => 0, 'nest_fqdn' => $nest['attributes']['fqdn']]);
+        Nest::create(['nest_id' => $request->nest_id, 'name' => $nest['attribute']['name'], 'description' => $nest['attribute']['description'], 'uuid' => $nest['attribute']['uuid']]);
         return redirect()->route("dashboard.nests.add")->with('message', 'Nest haas been added successfully');
     }
+
     public function nest_manage($id)
     {
         $nest = Nest::where(['id' => $id])->firstOrFail();
@@ -99,6 +101,7 @@ class AdminController extends Controller
         Egg::create(['name' => $request->egg_name, 'description' => $request->egg_description, 'slots' => $request->egg_slots, 'slots_used' => 0, 'type' => 0, 'panel_fqdn' => env('PTERODACTYL_FQDN'), 'egg_id' => $egg['attributes']['id'], 'uuid' => $egg['attributes']['uuid'], 'memory_allocated' => 0, 'disk_allocated' => 0, 'egg_fqdn' => $egg['attributes']['fqdn']]);
         return redirect()->route("dashboard.eggs.add")->with('message', 'Egg haas been added successfully');
     }
+
     public function egg_manage($id)
     {
         $egg = Egg::where(['id' => $id])->firstOrFail();
