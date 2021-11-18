@@ -44,14 +44,31 @@
                 <span class="menu-title">Users</span>
             </a>
         </li>
-        @endcan
-        @can('admin-content')
+
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{ route('dashboard.nodes') }}">
                 <span class="menu-icon">
                     <i class="mdi mdi-server"></i>
                 </span>
                 <span class="menu-title">Nodes</span>
+            </a>
+        </li>
+
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="{{ route('dashboard.nodes') }}">
+                <span class="menu-icon">
+                    <i class="mdi mdi-animation"></i>
+                </span>
+                <span class="menu-title">Nests</span>
+            </a>
+        </li>
+
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="{{ route('dashboard.nodes') }}">
+                <span class="menu-icon">
+                    <i class="mdi mdi-arrange-bring-to-front"></i>
+                </span>
+                <span class="menu-title">Eggs</span>
             </a>
         </li>
         @endcan
