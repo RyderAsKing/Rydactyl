@@ -45,4 +45,14 @@ Route::middleware(['auth.admin'])->group(function () {
     Route::get('/dashboard/nodes/add', [AdminController::class, 'node_add'])->name('dashboard.nodes.add');
     Route::post('/dashboard/nodes/add', [AdminController::class, 'node_add_store']);
     Route::get('/dashboard/nodes/{id}', [AdminController::class, 'node_manage'])->name('dashboard.nodes.manage');
+
+    Route::get('/dashboard/nests/', [AdminController::class, 'nests'])->name('dashboard.nests');
+    Route::get('/dashboard/nests/add', [AdminController::class, 'nest_add'])->name('dashboard.nests.add');
+    Route::post('/dashboard/nests/add', [AdminController::class, 'nest_add_store']);
+    Route::get('/dashboard/nests/{id}', [AdminController::class, 'nest_manage'])->name('dashboard.nests.manage');
+
+    Route::get('/dashboard/eggs/', [AdminController::class, 'eggs'])->name('dashboard.eggs');
+    Route::get('/dashboard/eggs/add', [AdminController::class, 'egg_add'])->name('dashboard.eggs.add');
+    Route::post('/dashboard/eggs/add', [AdminController::class, 'egg_add_store']);
+    Route::get('/dashboard/eggs/{id}', [AdminController::class, 'egg_manage'])->name('dashboard.eggs.manage');
 });
