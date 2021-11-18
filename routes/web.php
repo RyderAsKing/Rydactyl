@@ -56,3 +56,5 @@ Route::middleware(['auth.admin'])->group(function () {
     Route::post('/dashboard/eggs/add', [AdminController::class, 'egg_add_store']);
     Route::get('/dashboard/eggs/{id}', [AdminController::class, 'egg_manage'])->name('dashboard.eggs.manage');
 });
+
+// This is for 69 th commit on github :D
