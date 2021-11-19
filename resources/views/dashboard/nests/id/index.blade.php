@@ -9,7 +9,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Managing Nest ID: {{ $nest['id'] }} <a
+                        <h4 class="card-title">Eggs (Nest ID: {{ $nest['id'] }}) <a
                                 href="{{ route('dashboard.nests.id.eggs.add', $nest['id']) }}"> <button type="submit"
                                     class="btn btn-success mb-2 float-right">+
                                     Add egg</button></a></h4>
