@@ -33,10 +33,11 @@
                                             <td> {{ $egg->id }} </td>
                                             <td> {{ $egg->name }} </td>
                                             <td> {{ Str::limit($egg->description, 32, '...') }} </td>
-                                            <td> <a href="{{ route('dashboard.nests.id', $egg->id) }}"><button
+                                            <td> Coming Soon </td>
+                                            {{-- <td> <a href="{{ route('dashboard.nests.id', $egg->id) }}"><button
                                                         class="btn btn-warning"><i
                                                             class="mdi mdi-table-edit"></i></button></a>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                         @endforeach
                                         @endif
