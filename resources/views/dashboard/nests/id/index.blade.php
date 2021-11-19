@@ -9,9 +9,10 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Nests <a href="{{ route('dashboard.nests.add') }}"> <button type="submit"
+                        <h4 class="card-title">Managing Nest ID: {{ $nest['id'] }} <a
+                                href="{{ route('dashboard.nests.id.eggs.add', $nest['id']) }}"> <button type="submit"
                                     class="btn btn-success mb-2 float-right">+
-                                    Add nest</button></a></h4>
+                                    Add egg</button></a></h4>
                         <div class="table-responsive">
                             <table class="table table-bordered" id="nests-table" style="margin-bottom: 15px">
                                 <thead>
@@ -19,22 +20,20 @@
                                         <th>#</th>
                                         <th>Name</th>
                                         <th>Description</th>
-                                        <th>Eggs</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if(sizeof($nests) < 1) <tr>
-                                        <td colspan="6" align="center">No nests</td>
+                                    @if(sizeof($nest->egg) < 1) <tr>
+                                        <td colspan="6" align="center">No eggs</td>
                                         </tr>
                                         @else
-                                        @foreach ($nests as $nest)
+                                        @foreach ($nest->egg as $egg)
                                         <tr>
-                                            <td> {{ $nest->id }} </td>
-                                            <td> {{ $nest->name }} </td>
-                                            <td> {{ Str::limit($nest->description, 32, '...') }} </td>
-                                            <td> {{ $nest->egg->count() }} </td>
-                                            <td> <a href="{{ route('dashboard.nests.id', $nest->id) }}"><button
+                                            <td> {{ $egg->id }} </td>
+                                            <td> {{ $egg->name }} </td>
+                                            <td> {{ Str::limit($egg->description, 32, '...') }} </td>
+                                            <td> <a href="{{ route('dashboard.nests.id', $egg->id) }}"><button
                                                         class="btn btn-warning"><i
                                                             class="mdi mdi-table-edit"></i></button></a>
                                             </td>

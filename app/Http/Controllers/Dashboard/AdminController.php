@@ -76,8 +76,8 @@ class AdminController extends Controller
 
     public function nest_manage($id)
     {
-        $nest = Nest::where(['id' => $id])->firstOrFail();
-        return view('dashboard.nests.manage', ['nest' => $nest]);
+        $nest = Nest::where(['id' => $id])->with('egg')->firstOrFail();
+        return view('dashboard.nests.id.index', ['nest' => $nest]);
     }
 
 
@@ -88,10 +88,10 @@ class AdminController extends Controller
         return view('dashboard.eggs.index', ['eggs' => $eggs]);
     }
 
-    public function egg_add()
+    public function egg_add($id)
     {
-        $eggs = Pterodactyl::get_eggs()['data'];
-        return view('dashboard.eggs.add', ['eggs' => $eggs]);
+        $eggs = Pterodactyl::get_eggs($id)['data'];
+        return view('dashboard.nests.id.eggs.add', ['eggs' => $eggs, 'nest_id' => $id]);
     }
 
     public function egg_add_store(Request $request)

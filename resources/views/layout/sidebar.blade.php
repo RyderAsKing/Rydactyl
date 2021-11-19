@@ -62,15 +62,6 @@
                 <span class="menu-title">Nests</span>
             </a>
         </li>
-
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('dashboard.eggs') }}">
-                <span class="menu-icon">
-                    <i class="mdi mdi-arrange-bring-to-front"></i>
-                </span>
-                <span class="menu-title">Eggs</span>
-            </a>
-        </li>
         @endcan
     </ul>
 </nav>

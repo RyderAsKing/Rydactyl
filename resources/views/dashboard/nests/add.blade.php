@@ -5,14 +5,6 @@
     <div class="content-wrapper">
         @yield('message')
         <div class="row">
-            <div class="col-12 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h3>Make sure each nest are in their seperate location or this system will not work as expected.
-                        </h3>
-                    </div>
-                </div>
-            </div>
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">

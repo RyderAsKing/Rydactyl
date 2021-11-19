@@ -49,12 +49,10 @@ Route::middleware(['auth.admin'])->group(function () {
     Route::get('/dashboard/nests/', [AdminController::class, 'nests'])->name('dashboard.nests');
     Route::get('/dashboard/nests/add', [AdminController::class, 'nest_add'])->name('dashboard.nests.add');
     Route::post('/dashboard/nests/add', [AdminController::class, 'nest_add_store']);
-    Route::get('/dashboard/nests/{id}', [AdminController::class, 'nest_manage'])->name('dashboard.nests.manage');
-
-    Route::get('/dashboard/eggs/', [AdminController::class, 'eggs'])->name('dashboard.eggs');
-    Route::get('/dashboard/eggs/add', [AdminController::class, 'egg_add'])->name('dashboard.eggs.add');
-    Route::post('/dashboard/eggs/add', [AdminController::class, 'egg_add_store']);
-    Route::get('/dashboard/eggs/{id}', [AdminController::class, 'egg_manage'])->name('dashboard.eggs.manage');
+    Route::get('/dashboard/nests/{id}', [AdminController::class, 'nest_manage'])->name('dashboard.nests.id');
+    Route::get('/dashboard/nests/{id}/eggs/add', [AdminController::class, 'egg_add'])->name('dashboard.nests.id.eggs.add');
+    Route::post('/dashboard/nests/{id}/eggs/add', [AdminController::class, 'egg_add_store']);
+    Route::get('/dashboard/nests/{id}/eggs/{id}', [AdminController::class, 'egg_manage'])->name('dashboard.nests.id.eggs.manage');
 });
 
 // This is for 69 th commit on github :D
