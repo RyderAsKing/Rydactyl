@@ -10,6 +10,14 @@ class Egg extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'egg_id',
+        'nest_id',
+        'name',
+        'description',
+        'uuid',
+    ];
+
     public function nest()
     {
         return $this->belongsTo(Nest::class);

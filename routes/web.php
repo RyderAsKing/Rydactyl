@@ -50,9 +50,9 @@ Route::middleware(['auth.admin'])->group(function () {
     Route::get('/dashboard/nests/add', [AdminController::class, 'nest_add'])->name('dashboard.nests.add');
     Route::post('/dashboard/nests/add', [AdminController::class, 'nest_add_store']);
     Route::get('/dashboard/nests/{id}', [AdminController::class, 'nest_manage'])->name('dashboard.nests.id');
-    Route::get('/dashboard/nests/{id}/eggs/add', [AdminController::class, 'egg_add'])->name('dashboard.nests.id.eggs.add');
-    Route::post('/dashboard/nests/{id}/eggs/add', [AdminController::class, 'egg_add_store']);
-    Route::get('/dashboard/nests/{id}/eggs/{id}', [AdminController::class, 'egg_manage'])->name('dashboard.nests.id.eggs.manage');
+    Route::get('/dashboard/nests/{nest_id}/eggs/add', [AdminController::class, 'egg_add'])->name('dashboard.nests.id.eggs.add');
+    Route::post('/dashboard/nests/{nest_id}/eggs/add', [AdminController::class, 'egg_add_store']);
+    Route::get('/dashboard/nests/{nest_id}/eggs/{egg_id}', [AdminController::class, 'egg_manage'])->name('dashboard.nests.id.eggs.manage');
 });
 
 // This is for 69 th commit on github :D

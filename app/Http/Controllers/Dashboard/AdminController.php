@@ -88,18 +88,18 @@ class AdminController extends Controller
         return view('dashboard.eggs.index', ['eggs' => $eggs]);
     }
 
-    public function egg_add($id)
+    public function egg_add($nest_id)
     {
-        $eggs = Pterodactyl::get_eggs($id)['data'];
-        return view('dashboard.nests.id.eggs.add', ['eggs' => $eggs, 'nest_id' => $id]);
+        $eggs = Pterodactyl::get_eggs($nest_id)['data'];
+        return view('dashboard.nests.id.eggs.add', ['eggs' => $eggs, 'nest_id' => $nest_id]);
     }
 
-    public function egg_add_store(Request $request)
+    public function egg_add_store($nest_id, Request $request)
     {
-        $this->validate($request, ['egg_name' => 'required|max:128', 'egg_description' => 'required|max:256', 'egg_id' => 'required|numeric|unique:eggs,egg_id', 'egg_slots' => 'required|numeric|min:0']);
-        $egg = Pterodactyl::get_egg($request->egg_id);
-        Egg::create(['name' => $request->egg_name, 'description' => $request->egg_description, 'slots' => $request->egg_slots, 'slots_used' => 0, 'type' => 0, 'panel_fqdn' => env('PTERODACTYL_FQDN'), 'egg_id' => $egg['attributes']['id'], 'uuid' => $egg['attributes']['uuid'], 'memory_allocated' => 0, 'disk_allocated' => 0, 'egg_fqdn' => $egg['attributes']['fqdn']]);
-        return redirect()->route("dashboard.eggs.add")->with('message', 'Egg has been added successfully');
+        $this->validate($request, ['egg_id' => 'required|numeric|unique:eggs,egg_id']);
+        $egg = Pterodactyl::get_egg($nest_id, $request->egg_id);
+        Egg::create(['nest_id' => $nest_id, 'egg_id' => $request->egg_id, 'name' => $egg['attributes']['name'], 'description' => $egg['attributes']['description'], 'uuid' => $egg['attributes']['uuid']]);
+        return back()->with('message', 'Egg has been added successfully');
     }
 
     public function egg_manage($id)
