@@ -27,7 +27,7 @@
                                 </thead>
                                 <tbody>
                                     @if(sizeof($nodes) < 1) <tr>
-                                        <td colspan="6" align="center">No nodes</td>
+                                        <td colspan="7" align="center">No nodes</td>
                                         </tr>
                                         @else
                                         @foreach ($nodes as $node)
