@@ -5,12 +5,32 @@
     <div class="content-wrapper">
         @yield('message')
         <div class="row">
-            <div class="col-12">
-
+            <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Eggs (Nest ID: {{ $nest['id'] }}) <a
-                                href="{{ route('dashboard.nests.id.eggs.add', $nest['id']) }}"> <button type="submit"
+                        @if($nest->enabled == true)
+                        <h4 class="card-title">Disable Nest</h4>
+                        <p> Disabling a Nest will not allow any user to create a server using any of the egg this Nest
+                            has. Existing servers will remain uneffected.</p>
+                        <a href="{{ route('dashboard.nests.id.disable', $nest->id) }}"> <button type="submit"
+                                class="btn btn-danger mb-2">Disable</button></a>
+                        @else
+                        <h4 class="card-title">Enable Nest</h4>
+                        <p> Enabling a Nest will allow any user to create a server using any of the egg this Nest
+                            has. Existing servers
+                            will remain uneffected.</p>
+                        <a href="{{ route('dashboard.nests.id.disable', $nest->id) }}"> <button type="submit"
+                                class="btn btn-success mb-2">Enable</button></a>
+                        @endif
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Eggs (Nest ID: {{ $nest->id }}) <a
+                                href="{{ route('dashboard.nests.id.eggs.add', $nest->id) }}"> <button type="submit"
                                     class="btn btn-success mb-2 float-right">+
                                     Add egg</button></a></h4>
                         <div class="table-responsive">

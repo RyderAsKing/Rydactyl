@@ -80,14 +80,19 @@ class AdminController extends Controller
         return view('dashboard.nests.id.index', ['nest' => $nest]);
     }
 
-
-    // Eggs
-    public function eggs()
+    public function nest_toggle($id)
     {
-        $eggs = Egg::all();
-        return view('dashboard.eggs.index', ['eggs' => $eggs]);
+        $nest = Nest::where(['id' => $id])->with('egg')->firstOrFail();
+        if ($nest->enabled == false) {
+            $nest->enabled = true;
+        } else {
+            $nest->enabled = false;
+        }
+        $nest->save();
+        return back()->with('message', 'Nest status toggled successfully');
     }
 
+    // Eggs
     public function egg_add($nest_id)
     {
         $eggs = Pterodactyl::get_eggs($nest_id)['data'];
