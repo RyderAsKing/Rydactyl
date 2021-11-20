@@ -104,7 +104,7 @@ class AdminController extends Controller
     {
         $this->validate($request, ['egg_id' => 'required|numeric|unique:eggs,egg_id']);
         $egg = Pterodactyl::get_egg($nest_id, $request->egg_id);
-        Egg::create(['nest_id' => $nest_id, 'egg_id' => $request->egg_id, 'name' => $egg['attributes']['name'], 'description' => Str::limit($egg['attributes']['description'], 128, '...'), 'uuid' => $egg['attributes']['uuid']]);
+        Egg::create(['nest_id' => $nest_id, 'egg_id' => $request->egg_id, 'name' => $egg['attributes']['name'], 'description' => Str::limit($egg['attributes']['description'], 512, '...'), 'uuid' => $egg['attributes']['uuid']]);
         return back()->with('message', 'Egg has been added successfully');
     }
 

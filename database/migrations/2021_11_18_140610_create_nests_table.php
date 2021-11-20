@@ -16,7 +16,7 @@ class CreateNestsTable extends Migration
         Schema::create('nests', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
             $table->string('uuid');
             $table->integer('nest_id');
             $table->timestamps();
