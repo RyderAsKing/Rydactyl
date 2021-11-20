@@ -23,37 +23,45 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware([RedirectIfAuthenticated::class])->group(function () {
+    // Auth: Login and Register
     Route::get('/login', [DiscordController::class, 'build_url'])->name('login');
     Route::get('/login/token', [DiscordController::class, 'login']);
 });
 
 Route::middleware(['auth'])->group(function () {
+    // Overview
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Notificaations
     Route::get('/dashboard/notifications', [NotificationController::class, 'index'])->name('notifications');
     Route::get('/dashboard/notifications/{id}', [NotificationController::class, 'view'])->name('notifications.view');
     Route::get('/dashboard/notifications/{id}/delete', [NotificationController::class, 'delete'])->name('notifications.delete');
+
+    // Auth: Logout
     Route::get('/logout', [DiscordController::class, 'logout'])->name('logout');
 });
 
 Route::middleware(['auth.admin'])->group(function () {
+    // Users
     Route::get('/dashboard/users', [AdminController::class, 'users'])->name('dashboard.users');
     Route::get('/dashboard/users/{id}', [AdminController::class, 'user_manage'])->name('dashboard.users.manage');
     Route::get('/dashboard/users/{id}/suspend', [AdminController::class, 'index'])->name('dashboard.users.suspend');
     Route::get('/dashboard/users/{id}/delete', [AdminController::class, 'index'])->name('dashboard.users.delete');
 
+    // Nodes
     Route::get('/dashboard/nodes/', [AdminController::class, 'nodes'])->name('dashboard.nodes');
     Route::get('/dashboard/nodes/add', [AdminController::class, 'node_add'])->name('dashboard.nodes.add');
     Route::post('/dashboard/nodes/add', [AdminController::class, 'node_add_store']);
     Route::get('/dashboard/nodes/{id}', [AdminController::class, 'node_manage'])->name('dashboard.nodes.manage');
 
+    // Nests and eggs
     Route::get('/dashboard/nests/', [AdminController::class, 'nests'])->name('dashboard.nests');
     Route::get('/dashboard/nests/add', [AdminController::class, 'nest_add'])->name('dashboard.nests.add');
     Route::post('/dashboard/nests/add', [AdminController::class, 'nest_add_store']);
     Route::get('/dashboard/nests/{id}', [AdminController::class, 'nest_manage'])->name('dashboard.nests.id');
-    Route::get('/dashboard/nests/{id}/disable', [AdminController::class, 'nest_toggle'])->name('dashboard.nests.id.disable');
+    Route::get('/dashboard/nests/{id}/toggle', [AdminController::class, 'nest_toggle'])->name('dashboard.nests.id.toggle');
     Route::get('/dashboard/nests/{nest_id}/eggs/add', [AdminController::class, 'egg_add'])->name('dashboard.nests.id.eggs.add');
     Route::post('/dashboard/nests/{nest_id}/eggs/add', [AdminController::class, 'egg_add_store']);
-    Route::get('/dashboard/nests/{nest_id}/eggs/{egg_id}', [AdminController::class, 'egg_manage'])->name('dashboard.nests.id.eggs.manage');
+    Route::get('/dashboard/nests/{nest_id}/eggs/{egg_id}', [AdminController::class, 'egg_manage'])->name('dashboard.nests.id.eggs.id.manage');
+    Route::get('/dashboard/nests/{nest_id}/eggs/{egg_id}/toggle', [AdminController::class, 'egg_toggle'])->name('dashboard.nests.id.eggs.id.toggle');
 });
-
-// This is for 69 th commit on github :D

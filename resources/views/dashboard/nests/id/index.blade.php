@@ -12,14 +12,14 @@
                         <h4 class="card-title">Disable Nest</h4>
                         <p> Disabling a Nest will not allow any user to create a server using any of the egg this Nest
                             has. Existing servers will remain uneffected.</p>
-                        <a href="{{ route('dashboard.nests.id.disable', $nest->id) }}"> <button type="submit"
+                        <a href="{{ route('dashboard.nests.id.toggle', $nest->id) }}"> <button type="submit"
                                 class="btn btn-danger mb-2">Disable</button></a>
                         @else
                         <h4 class="card-title">Enable Nest</h4>
                         <p> Enabling a Nest will allow any user to create a server using any of the egg this Nest
                             has. Existing servers
                             will remain uneffected.</p>
-                        <a href="{{ route('dashboard.nests.id.disable', $nest->id) }}"> <button type="submit"
+                        <a href="{{ route('dashboard.nests.id.toggle', $nest->id) }}"> <button type="submit"
                                 class="btn btn-success mb-2">Enable</button></a>
                         @endif
 
@@ -40,6 +40,7 @@
                                         <th>#</th>
                                         <th>Name</th>
                                         <th>Description</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -53,11 +54,14 @@
                                             <td> {{ $egg->id }} </td>
                                             <td> {{ $egg->name }} </td>
                                             <td> {{ Str::limit($egg->description, 32, '...') }} </td>
-                                            <td> Coming Soon </td>
-                                            {{-- <td> <a href="{{ route('dashboard.nests.id', $egg->id) }}"><button
+                                            <td> @if($egg->enabled == true) <span
+                                                    class="badge badge-success">Enabled</span> @else <span
+                                                    class="badge badge-danger">Disabled</span> @endif</td>
+                                            <td> <a
+                                                    href="{{ route('dashboard.nests.id.eggs.id.manage', [$nest->id, $egg->id]) }}"><button
                                                         class="btn btn-warning"><i
                                                             class="mdi mdi-table-edit"></i></button></a>
-                                            </td> --}}
+                                            </td>
                                         </tr>
                                         @endforeach
                                         @endif

@@ -82,7 +82,7 @@ class AdminController extends Controller
 
     public function nest_toggle($id)
     {
-        $nest = Nest::where(['id' => $id])->with('egg')->firstOrFail();
+        $nest = Nest::where(['id' => $id])->firstOrFail();
         if ($nest->enabled == false) {
             $nest->enabled = true;
         } else {
@@ -111,5 +111,17 @@ class AdminController extends Controller
     {
         $egg = Egg::where(['id' => $id])->firstOrFail();
         return view('dashboard.eggs.manage', ['egg' => $egg]);
+    }
+
+    public function egg_toggle($id)
+    {
+        $egg = Egg::where(['id' => $id])->firstOrFail();
+        if ($egg->enabled == false) {
+            $egg->enabled = true;
+        } else {
+            $egg->enabled = false;
+        }
+        $egg->save();
+        return back()->with('message', 'Egg status toggled successfully');
     }
 }

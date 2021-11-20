@@ -19,6 +19,7 @@
                                         <th>#</th>
                                         <th>Name</th>
                                         <th>Description</th>
+                                        <th>Status</th>
                                         <th>Eggs</th>
                                         <th>Actions</th>
                                     </tr>
@@ -33,6 +34,9 @@
                                             <td> {{ $nest->id }} </td>
                                             <td> {{ $nest->name }} </td>
                                             <td> {{ Str::limit($nest->description, 32, '...') }} </td>
+                                            <td> @if($nest->enabled == true) <span
+                                                    class="badge badge-success">Enabled</span> @else <span
+                                                    class="badge badge-danger">Disabled</span> @endif</td>
                                             <td> {{ $nest->egg->count() }} </td>
                                             <td> <a href="{{ route('dashboard.nests.id', $nest->id) }}"><button
                                                         class="btn btn-warning"><i
