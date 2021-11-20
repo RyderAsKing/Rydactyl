@@ -29,6 +29,16 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('admin-content', function (User $user) {
             return $user->type === 1;
         });
+
+        Gate::define('use-egg', function (User $user, $egg_id) {
+            $egg = Egg::where(['egg_id' =>  $egg_id])->with('nest')->firstOrFail();
+            
+            if($egg->enabled === false || $egg->nest->enabled === false) {
+                return false;
+            }
+            
+            return true;
+        })
         //
     }
 }
