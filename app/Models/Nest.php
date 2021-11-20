@@ -15,6 +15,7 @@ class Nest extends Model
         'name',
         'description',
         'uuid',
+        'enabled',
     ];
 
     public function egg()
