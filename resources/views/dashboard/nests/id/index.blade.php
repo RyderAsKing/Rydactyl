@@ -58,7 +58,7 @@
                                                     class="badge badge-success">Enabled</span> @else <span
                                                     class="badge badge-danger">Disabled</span> @endif</td>
                                             <td> <a
-                                                    href="{{ route('dashboard.nests.id.eggs.id.manage', [$nest->id, $egg->id]) }}"><button
+                                                    href="{{ route('dashboard.nests.id.eggs.id', [$nest->id, $egg->id]) }}"><button
                                                         class="btn btn-warning"><i
                                                             class="mdi mdi-table-edit"></i></button></a>
                                             </td>

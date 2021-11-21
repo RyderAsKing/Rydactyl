@@ -108,15 +108,15 @@ class AdminController extends Controller
         return back()->with('message', 'Egg has been added successfully');
     }
 
-    public function egg_manage($id)
+    public function egg_manage($nest_id, $id)
     {
-        $egg = Egg::where(['id' => $id])->firstOrFail();
-        return view('dashboard.eggs.manage', ['egg' => $egg]);
+        $egg = Egg::where(['id' => $id, 'nest_id' => $nest_id])->firstOrFail();
+        return view('dashboard.nests.id.eggs.id.index', ['egg' => $egg]);
     }
 
-    public function egg_toggle($id)
+    public function egg_toggle($nest_id, $id)
     {
-        $egg = Egg::where(['id' => $id])->firstOrFail();
+        $egg = Egg::where(['id' => $id, 'nest_id' => $nest_id])->firstOrFail();
         if ($egg->enabled == false) {
             $egg->enabled = true;
         } else {
@@ -124,5 +124,23 @@ class AdminController extends Controller
         }
         $egg->save();
         return back()->with('message', 'Egg status toggled successfully');
+    }
+
+    public function egg_update(Request $request, $nest_id, $id)
+    {
+        $this->validate($request, ['egg_name' => 'nullable|max:64', 'egg_description' => 'nullable|max:256']);
+        if ($request->egg_name == null && $request->egg_description == null) {
+            return back()->with('message', 'No changes were made');
+        }
+        $egg = Egg::where(['id' => $id, 'nest_id' => $nest_id])->firstOrFail();
+
+        if ($request->egg_name != null) {
+            $egg->name = $request->egg_name;
+        }
+        if ($request->egg_description != null) {
+            $egg->description = $request->egg_description;
+        }
+        $egg->save();
+        return back()->with('message', 'Egg updated successfully');
     }
 }
