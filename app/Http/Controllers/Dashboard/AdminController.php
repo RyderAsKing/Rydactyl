@@ -114,18 +114,6 @@ class AdminController extends Controller
         return view('dashboard.nests.id.eggs.id.index', ['egg' => $egg]);
     }
 
-    public function egg_toggle($nest_id, $id)
-    {
-        $egg = Egg::where(['id' => $id, 'nest_id' => $nest_id])->firstOrFail();
-        if ($egg->enabled == false) {
-            $egg->enabled = true;
-        } else {
-            $egg->enabled = false;
-        }
-        $egg->save();
-        return back()->with('message', 'Egg status toggled successfully');
-    }
-
     public function egg_update(Request $request, $nest_id, $id)
     {
         $this->validate($request, ['egg_name' => 'nullable|max:64', 'egg_description' => 'nullable|max:256']);
@@ -142,5 +130,28 @@ class AdminController extends Controller
         }
         $egg->save();
         return back()->with('message', 'Egg updated successfully');
+    }
+
+    public function egg_toggle($nest_id, $id)
+    {
+        $egg = Egg::where(['id' => $id, 'nest_id' => $nest_id])->firstOrFail();
+        if ($egg->enabled == false) {
+            $egg->enabled = true;
+        } else {
+            $egg->enabled = false;
+        }
+        $egg->save();
+        return back()->with('message', 'Egg status toggled successfully');
+    }
+
+    public function egg_resync($nest_id, $id)
+    {
+        $egg = Egg::where(['id' => $id, 'nest_id' => $nest_id])->firstOrFail();
+        $pterodactyl_information = Pterodactyl::get_egg($nest_id, $id);
+        $egg->name = $pterodactyl_information['attributes']['name'];
+        $egg->description = Str::limit($pterodactyl_information['attributes']['description'], 512, '...');
+        $egg->uuid = $pterodactyl_information['attributes']['uuid'];
+        $egg->save();
+        return back()->with('message', 'Egg resynced successfully');
     }
 }
