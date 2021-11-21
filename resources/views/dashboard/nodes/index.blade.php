@@ -22,6 +22,7 @@
                                         <th>Slots</th>
                                         <th>Slots Used</th>
                                         <th>Slots Remaining</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -38,7 +39,10 @@
                                             <td> {{ $node->slots }} </td>
                                             <td> {{ $node->slots_used }} </td>
                                             <td> {{ $node->slots - $node->slots_used }} </td>
-                                            <td> <a href="{{ route('dashboard.nodes.manage', $node->id) }}"><button
+                                            <td> @if($node->enabled == true) <span
+                                                    class="badge badge-success">Enabled</span> @else <span
+                                                    class="badge badge-danger">Disabled</span> @endif</td>
+                                            <td> <a href="{{ route('dashboard.nodes.id', $node->id) }}"><button
                                                         class="btn btn-warning"><i
                                                             class="mdi mdi-table-edit"></i></button></a>
                                             </td>

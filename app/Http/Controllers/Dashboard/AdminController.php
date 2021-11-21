@@ -50,9 +50,20 @@ class AdminController extends Controller
     public function node_manage($id)
     {
         $node = Node::where(['id' => $id])->firstOrFail();
-        return view('dashboard.nodes.manage', ['node' => $node]);
+        return view('dashboard.nodes.id.index', ['node' => $node]);
     }
 
+    public function node_toggle($id)
+    {
+        $node = Node::where(['id' => $id])->firstOrFail();
+        if ($node->enabled == false) {
+            $node->enabled = true;
+        } else {
+            $node->enabled = false;
+        }
+        $node->save();
+        return back()->with('message', 'Node status toggled successfully');
+    }
 
     // Nests
     public function nests()
