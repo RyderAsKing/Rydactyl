@@ -21,5 +21,6 @@ class Node extends Model
         'memory_allocated',
         'disk_allocated',
         'description',
+        'enabled',
     ];
 }
