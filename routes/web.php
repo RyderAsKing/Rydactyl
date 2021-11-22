@@ -44,9 +44,9 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth.admin'])->group(function () {
     // Users
     Route::get('/dashboard/users', [AdminController::class, 'users'])->name('dashboard.users');
-    Route::get('/dashboard/users/{id}', [AdminController::class, 'user_manage'])->name('dashboard.users.manage');
-    Route::get('/dashboard/users/{id}/suspend', [AdminController::class, 'index'])->name('dashboard.users.suspend');
-    Route::get('/dashboard/users/{id}/delete', [AdminController::class, 'index'])->name('dashboard.users.delete');
+    Route::get('/dashboard/users/{id}', [AdminController::class, 'user_manage'])->name('dashboard.users.id');
+    Route::get('/dashboard/users/{id}/toggle', [AdminController::class, 'user_toggle'])->name('dashboard.users.id.toggle');
+    Route::get('/dashboard/users/{id}/delete', [AdminController::class, 'index'])->name('dashboard.users.id.delete');
 
     // Nodes
     Route::get('/dashboard/nodes/', [AdminController::class, 'nodes'])->name('dashboard.nodes');
