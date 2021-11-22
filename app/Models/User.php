@@ -32,6 +32,8 @@ class User extends Authenticatable
         'coin_balance',
         'panel_acc',
         'last_login',
+        'suspended',
+        'suspended_on',
     ];
 
     /**
@@ -44,7 +46,8 @@ class User extends Authenticatable
     ];
 
     protected $dates = [
-        'last_login'
+        'last_login',
+        'suspended_on',
     ];
 
     /**
