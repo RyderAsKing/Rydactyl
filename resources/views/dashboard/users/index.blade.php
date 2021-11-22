@@ -20,6 +20,9 @@
                                         <th> DISK Balance</th>
                                         <th> Slots Balance</th>
                                         <th> RAM Used </th>
+                                        <th> CPU Used </th>
+                                        <th> Disk Used </th>
+                                        <th> Status </th>
                                         <th> Actions </th>
                                     </tr>
                                 </thead>
@@ -38,13 +41,18 @@
                                             <td> {{ $user->disk_balance }} </td>
                                             <td> {{ $user->cpu_balance }} </td>
                                             <td> {{ $user->slot_balance }} </td>
-                                            <td> {{ $user->total_ram_balance - $user->ram_balance }}
-                                            </td>
+                                            <td> {{ $user->total_ram_balance - $user->ram_balance }}</td>
+                                            <td> {{ $user->total_cpu_balance - $user->cpu_balance }}</td>
+                                            <td> {{ $user->total_disk_balance - $user->disk_balance }}</td>
+                                            <td> @if($user->suspended == false) <span
+                                                    class="badge badge-success">Active</span> @else <span
+                                                    class="badge badge-danger">Suspended</span> @endif</td>
+
                                             <td> @if($user->id == Auth::user()->id) @else <a
-                                                    href="{{ route('dashboard.users.delete', $user->id) }}"><button
+                                                    href="{{ route('dashboard.users.id.delete', $user->id) }}"><button
                                                         class="btn btn-danger"><i
                                                             class="mdi mdi-delete"></i></button></a> @endif <a
-                                                    href="{{ route('dashboard.users.manage', $user->id) }}"><button
+                                                    href="{{ route('dashboard.users.id', $user->id) }}"><button
                                                         class="btn btn-warning"><i
                                                             class="mdi mdi-table-edit"></i></button></a></td>
                                         </tr>
