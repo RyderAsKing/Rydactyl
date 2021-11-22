@@ -8,6 +8,7 @@ use App\Models\Node;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use App\Custom\Functions\Pterodactyl;
 
@@ -23,7 +24,21 @@ class AdminController extends Controller
     public function user_manage($id)
     {
         $user = User::where(['id' => $id])->firstOrFail();
-        return view('dashboard.users.manage', ['user' => $user]);
+        return view('dashboard.users.id.index', ['user' => $user]);
+    }
+
+    public function user_toggle($id)
+    {
+        $user = User::where(['id' => $id])->firstOrFail();
+        if ($user->suspended == false) {
+            $user->suspended = true;
+            $user->suspended_on = Carbon::now();
+        } else {
+            $user->suspended = false;
+            $user->suspended_on = null;
+        }
+        $user->save();
+        return back()->with('message', 'User status toggled successfully');
     }
 
     // Nodes
