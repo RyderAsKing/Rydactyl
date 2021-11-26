@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class NotificationController extends Controller
 {
     //
-    public function index(Request $request)
+    public function index()
     {
         $notifications = Auth::user()->notifications()->get();
         return view('dashboard.notifications')->with('notifications', $notifications);
@@ -17,7 +17,7 @@ class NotificationController extends Controller
 
     public function delete($id)
     {
-        Auth::user()->notifications()->where(['id' => $id])->delete();
+        Auth::user()->notifications()->where(['id' => $id])->firstOrFail()->delete();
         return back()->with('message', 'Successfully deleted notification ID: ' . $id);
     }
 
