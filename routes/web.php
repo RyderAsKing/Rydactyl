@@ -53,6 +53,7 @@ Route::middleware(['auth.admin'])->group(function () {
     Route::get('/dashboard/nodes/add', [AdminController::class, 'node_add'])->name('dashboard.nodes.add');
     Route::post('/dashboard/nodes/add', [AdminController::class, 'node_add_store']);
     Route::get('/dashboard/nodes/{id}', [AdminController::class, 'node_manage'])->name('dashboard.nodes.id');
+    Route::post('/dashboard/nodes/{id}', [AdminController::class, 'node_update']);
     Route::get('/dashboard/nodes/{id}/toggle', [AdminController::class, 'node_toggle'])->name('dashboard.nodes.id.toggle');
 
     // Nests and eggs

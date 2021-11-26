@@ -80,6 +80,28 @@ class AdminController extends Controller
         return back()->with('message', 'Node status toggled successfully');
     }
 
+    public function node_update(Request $request, $id)
+    {
+        $node = Node::where(['id' => $id])->firstOrFail();
+        $this->validate($request, ['node_name' => 'nullable|string|max:64', 'node_description' => 'nullable|string|max:512', 'node_slots' => 'nullable|integer|gt:' . $node->slots_used]);
+
+        if ($request->node_name == null && $request->node_description == null && $request->node_slots == null) {
+            return back()->with('message', 'No changes were made');
+        }
+
+        if ($request->node_name != null) {
+            $node->name = $request->node_name;
+        }
+        if ($request->node_description != null) {
+            $node->description = $request->node_description;
+        }
+        if ($request->node_slots != null) {
+            $node->slots = $request->node_slots;
+        }
+        $node->save();
+        return back()->with('message', 'Updated Node successfully');
+    }
+
     // Nests
     public function nests()
     {
