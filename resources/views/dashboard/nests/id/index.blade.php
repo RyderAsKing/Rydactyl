@@ -5,7 +5,7 @@
     <div class="content-wrapper">
         @yield('message')
         <div class="row">
-            <div class="col-12 grid-margin stretch-card">
+            <div class="col-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         @if($nest->enabled == true)
@@ -22,6 +22,20 @@
                         <a href="{{ route('dashboard.nests.id.toggle', $nest->id) }}"> <button type="submit"
                                 class="btn btn-success mb-2">Enable</button></a>
                         @endif
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Resync Nest</h4>
+                        <p> Resyncing a Nest will replace all values such as name, description and uuid. This
+                            information
+                            will also
+                            be updated for any servers description on the dashboard.</p>
+                        <a href="{{ route('dashboard.nests.id.resync', $nest->id) }}"> <button type="submit"
+                                class="btn btn-info mb-2">Resync</button></a>
 
                     </div>
                 </div>

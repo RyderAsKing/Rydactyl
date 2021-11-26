@@ -119,6 +119,17 @@ class AdminController extends Controller
         return back()->with('message', 'Nest status toggled successfully');
     }
 
+    public function nest_resync($id)
+    {
+        $nest = Nest::where(['id' => $id])->firstOrFail();
+        $pterodactyl_information = Pterodactyl::get_nest($nest->nest_id);
+        $nest->name = $pterodactyl_information['attributes']['name'];
+        $nest->description = Str::limit($pterodactyl_information['attributes']['description'], 512, '...');
+        $nest->uuid = $pterodactyl_information['attributes']['uuid'];
+        $nest->save();
+        return back()->with('message', 'Nest resynced successfully');
+    }
+
     // Eggs
     public function egg_add($nest_id)
     {

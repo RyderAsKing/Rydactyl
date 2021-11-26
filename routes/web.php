@@ -61,6 +61,7 @@ Route::middleware(['auth.admin'])->group(function () {
     Route::post('/dashboard/nests/add', [AdminController::class, 'nest_add_store']);
     Route::get('/dashboard/nests/{id}', [AdminController::class, 'nest_manage'])->name('dashboard.nests.id');
     Route::get('/dashboard/nests/{id}/toggle', [AdminController::class, 'nest_toggle'])->name('dashboard.nests.id.toggle');
+    Route::get('/dashboard/nests/{id}/resync', [AdminController::class, 'nest_resync'])->name('dashboard.nests.id.resync');
     Route::get('/dashboard/nests/{nest_id}/eggs/add', [AdminController::class, 'egg_add'])->name('dashboard.nests.id.eggs.add');
     Route::post('/dashboard/nests/{nest_id}/eggs/add', [AdminController::class, 'egg_add_store']);
     Route::get('/dashboard/nests/{nest_id}/eggs/{egg_id}', [AdminController::class, 'egg_manage'])->name('dashboard.nests.id.eggs.id');
