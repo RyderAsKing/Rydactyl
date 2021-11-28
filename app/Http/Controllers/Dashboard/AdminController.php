@@ -41,6 +41,51 @@ class AdminController extends Controller
         return back()->with('message', 'User status toggled successfully');
     }
 
+    public function user_update(Request $request, $id)
+    {
+        $user = User::where(['id' => $id])->firstOrFail();
+
+        $this->validate($request, ['ram' => 'numeric|min:' . ($user->total_ram_balance - $user->ram_balance), 'disk' => 'numeric|min:' . ($user->total_disk_balance - $user->disk_balance), 'cpu' => 'numeric|min:' . ($user->total_cpu_balance - $user->cpu_balance), 'slot' => 'numeric|min:' . ($user->total_slot_balance - $user->slot_balance)]);
+        if ($request->ram == $user->ram_balance && $request->disk == $user->disk_balance && $request->cpu == $user->cpu_balance && $request->slot == $user->slot_balance) {
+            return back()->with('message', 'No changes were made');
+        }
+
+        if ($request->ram != null && $request->ram != $user->ram_balance) {
+            $current_total_ram_balance = $user->total_ram_balance;
+            $current_ram_balance = $user->ram_balance;
+            $user->ram_balance = $request->ram;
+            $user->total_ram_balance = ($current_total_ram_balance - $current_ram_balance) + $request->ram;
+        }
+
+        if ($request->disk != null && $request->disk != $user->disk_balance) {
+            $current_total_disk_balance = $user->total_disk_balance;
+            $current_disk_balance = $user->disk_balance;
+            $current_total_disk_balance = $user->total_disk_balance;
+            $user->disk_balance = $request->disk;
+            $user->total_disk_balance = ($current_total_disk_balance - $current_disk_balance) + $request->disk;
+        }
+
+        if ($request->cpu != null && $request->cpu != $user->cpu_balance) {
+            $current_total_cpu_balance = $user->total_cpu_balance;
+            $current_cpu_balance = $user->cpu_balance;
+            $current_total_cpu_balance = $user->total_cpu_balance;
+            $user->cpu_balance = $request->cpu;
+            $user->total_cpu_balance = ($current_total_cpu_balance - $current_cpu_balance) + $request->cpu;
+        }
+
+        if ($request->slot != null && $request->slot != $user->slot_balance) {
+            $current_total_slot_balance = $user->total_slot_balance;
+            $current_slot_balance = $user->slot_balance;
+            $current_total_slot_balance = $user->total_slot_balance;
+            $user->slot_balance = $request->slot;
+            $user->total_slot_balance = ($current_total_slot_balance - $current_slot_balance) + $request->slot;
+        }
+
+        $user->save();
+
+        return back()->with('message', 'User updated successfully');
+    }
+
     // Nodes
     public function nodes()
     {

@@ -99,10 +99,53 @@
                     </div>
                 </div>
             </div>
-            <div class="col-3 mb-3">
+            <div class="col-12 mb-3">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
+                            <div class="col-12 mb-3">
+                                <form class="forms-sample" method="post" action={{ route('dashboard.users.id',
+                                    $user['id']) }}>
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="ram">RAM</label>
+                                        <input type="number" class="form-control mb-1" id="ram" name="ram"
+                                            placeholder="RAM" value={{ $user['ram_balance'] }} min={{
+                                            $user['total_ram_balance'] - $user['ram_balance'] }}>
+                                        <p class="card-description">Current balance: {{ $user['ram_balance'] }}, Used
+                                            balance: {{ $user['total_ram_balance'] - $user['ram_balance'] }} and Total
+                                            balance: {{ $user['total_ram_balance'] }}</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="disk">Disk</label>
+                                        <input type="number" class="form-control mb-1" id="disk" name="disk"
+                                            placeholder="Disk" value={{ $user['disk_balance'] }} min={{
+                                            $user['total_disk_balance'] - $user['disk_balance'] }}>
+                                        <p class="card-description">Current balance: {{ $user['disk_balance'] }}, Used
+                                            balance: {{ $user['total_disk_balance'] - $user['disk_balance'] }} and Total
+                                            balance: {{ $user['total_disk_balance'] }}</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cpu">CPU</label>
+                                        <input type="number" class="form-control mb-1" id="cpu" name="cpu"
+                                            placeholder="CPU" value={{ $user['cpu_balance'] }} min={{
+                                            $user['total_cpu_balance'] - $user['cpu_balance'] }}>
+                                        <p class="card-description">Current balance: {{ $user['cpu_balance'] }}, Used
+                                            balance: {{ $user['total_cpu_balance'] - $user['cpu_balance'] }} and Total
+                                            balance: {{ $user['total_cpu_balance'] }}</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="slot">Slots</label>
+                                        <input type="number" class="form-control mb-1" id="slot" name="slot"
+                                            placeholder="Slots" value={{ $user['slot_balance'] }} min={{
+                                            $user['total_slot_balance'] - $user['slot_balance'] }}>
+                                        <p class="card-description">Current balance: {{ $user['slot_balance'] }}, Used
+                                            balance: {{ $user['total_slot_balance'] - $user['slot_balance'] }} and Total
+                                            balance: {{ $user['total_slot_balance'] }}</p>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mr-2">Update</button>
+                                </form>
+                            </div>
                             <div class="col-12">
                                 @if($user->suspended == false)
                                 <h4 class="card-title">Suspend user account</h4>
@@ -130,6 +173,7 @@
             </div>
         </div>
     </div>
-    <script>
-    </script>
-    @endsection
+</div>
+<script>
+</script>
+@endsection
