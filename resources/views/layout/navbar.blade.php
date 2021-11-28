@@ -5,6 +5,8 @@
             <span class="mdi mdi-menu"></span>
         </button>
         <ul class="navbar-nav navbar-nav-right">
+            <span class="badge badge-primary">{{
+                Auth::user()->coin_balance }} Coins</span>
             @php
             $notifications = Auth::user()->notifications()->take(3)->get()
             @endphp

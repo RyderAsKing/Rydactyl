@@ -143,6 +143,12 @@
                                             balance: {{ $user['total_slot_balance'] - $user['slot_balance'] }} and Total
                                             balance: {{ $user['total_slot_balance'] }}</p>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="coin">Coins</label>
+                                        <input type="number" class="form-control mb-1" id="coin" name="coin"
+                                            placeholder="Coins" value={{ $user['coin_balance'] }} min="0">
+                                        <p class="card-description">Current balance: {{ $user['coin_balance'] }}</p>
+                                    </div>
                                     <button type="submit" class="btn btn-primary mr-2">Update</button>
                                 </form>
                             </div>

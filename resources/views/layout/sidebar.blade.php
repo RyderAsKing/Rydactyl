@@ -19,7 +19,7 @@
                     </div>
                     <div class="profile-name">
                         <h5 class="mb-0 font-weight-normal">{{ Session::get('user')->username }}</h5>
-                        <span>#{{ Session::get('user')->discriminator }}</span>
+                        <span>#{{ Session::get('user')->discriminator }} </span>
                     </div>
                 </div>
             </div>

@@ -46,7 +46,7 @@ class AdminController extends Controller
         $user = User::where(['id' => $id])->firstOrFail();
 
         $this->validate($request, ['ram' => 'numeric|min:' . ($user->total_ram_balance - $user->ram_balance), 'disk' => 'numeric|min:' . ($user->total_disk_balance - $user->disk_balance), 'cpu' => 'numeric|min:' . ($user->total_cpu_balance - $user->cpu_balance), 'slot' => 'numeric|min:' . ($user->total_slot_balance - $user->slot_balance)]);
-        if ($request->ram == $user->ram_balance && $request->disk == $user->disk_balance && $request->cpu == $user->cpu_balance && $request->slot == $user->slot_balance) {
+        if ($request->ram == $user->ram_balance && $request->disk == $user->disk_balance && $request->cpu == $user->cpu_balance && $request->slot == $user->slot_balance && $request->coin == $user->coin_balance) {
             return back()->with('message', 'No changes were made');
         }
 
@@ -79,6 +79,10 @@ class AdminController extends Controller
             $current_total_slot_balance = $user->total_slot_balance;
             $user->slot_balance = $request->slot;
             $user->total_slot_balance = ($current_total_slot_balance - $current_slot_balance) + $request->slot;
+        }
+
+        if ($request->coin != null && $request->coin != $user->coin_balance) {
+            $user->coin_balance = $request->coin;
         }
 
         $user->save();
