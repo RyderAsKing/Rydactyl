@@ -33,7 +33,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="node_name">Name</label>
-                                <input type="text" class="form-control mb-3" id="node_name" name="node_name"
+                                <input type="text" class="form-control mb-1" id="node_name" name="node_name"
                                     placeholder="Name of the Node (Displayed when deploying a server)" value={{
                                     old('node_name') }}>
                                 <small>Current
@@ -46,7 +46,7 @@
 
                             <div class="form-group">
                                 <label for="node_description">Description</label>
-                                <input type="text" class="form-control mb-3" id="node_description"
+                                <input type="text" class="form-control mb-1" id="node_description"
                                     name="node_description" placeholder="Description of the Node" value={{
                                     old('node_description') }}>
                                 <small>Current
@@ -59,7 +59,7 @@
 
                             <div class="form-group">
                                 <label for="node_slots">Slots</label>
-                                <input type="number" class="form-control" id="node_slots" name="node_slots"
+                                <input type="number" class="form-control mb-1" id="node_slots" name="node_slots"
                                     placeholder="How many servers can be created on this node?" min="0" value={{
                                     old('node_slots') }}>
                                 <small>Current
