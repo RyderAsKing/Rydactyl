@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Custom\Functions\Pterodactyl;
 
 class AdminController extends Controller
@@ -261,5 +262,11 @@ class AdminController extends Controller
         $egg->uuid = $pterodactyl_information['attributes']['uuid'];
         $egg->save();
         return back()->with('message', 'Egg resynced successfully');
+    }
+
+    public function test_egg($egg_id)
+    {
+        $node = Node::get()->first();
+        $pterodactyl_information = Pterodactyl::create_server(Auth::user()->id, $node->node_id, $egg_id, "Testing egg", 128, 512, 10);
     }
 }

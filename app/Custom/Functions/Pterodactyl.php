@@ -2,6 +2,8 @@
 
 namespace App\Custom\Functions;
 
+use App\Models\Egg;
+use App\Models\Node;
 use App\Models\User;
 use Illuminate\Support\Str;
 
@@ -475,132 +477,6 @@ class Pterodactyl
                         "data": []
                     }
                     }
-                }
-                },
-                {
-                "object": "egg",
-                "attributes": {
-                    "id": 3,
-                    "uuid": "2ad75dfd-892d-4441-a452-6d7be7cc895a",
-                    "name": "Paper",
-                    "nest": 1,
-                    "author": "parker@pterodactyl.io",
-                    "description": "High performance Spigot fork that aims to fix gameplay and mechanics inconsistencies.",
-                    "docker_image": "quay.io\/pterodactyl\/core:java",
-                    "config": {
-                    "files": {
-                        "server.properties": {
-                        "parser": "properties",
-                        "find": {
-                            "server-ip": "0.0.0.0",
-                            "server-port": "{{server.build.default.port}}"
-                        }
-                        }
-                    },
-                    "startup": {
-                        "done": ")! For help, type ",
-                        "userInteraction": [
-                        "Go to eula.txt for more info."
-                        ]
-                    },
-                    "stop": "stop",
-                    "logs": [],
-                    "extends": null
-                    },
-                    "startup": "java -Xms128M -Xmx{{SERVER_MEMORY}}M -Dterminal.jline=false -Dterminal.ansi=true -jar {{SERVER_JARFILE}}",
-                    "script": {
-                    "privileged": true,
-                    "install": "#!\/bin\/ash\r\n# Paper Installation Script\r\n#\r\n# Server Files: \/mnt\/server\r\napk add --no-cache --update curl jq\r\n\r\nif [ -n \"${DL_PATH}\" ]; then\r\n    echo -e \"using supplied download url\"\r\n    DOWNLOAD_URL=`eval echo $(echo ${DL_PATH} | sed -e 's\/{{\/${\/g' -e 's\/}}\/}\/g')`\r\nelse\r\n    VER_EXISTS=`curl -s https:\/\/papermc.io\/api\/v1\/paper | jq -r --arg VERSION $MINECRAFT_VERSION '.versions[] | IN($VERSION)' | grep true`\r\n    LATEST_PAPER_VERSION=`curl -s https:\/\/papermc.io\/api\/v1\/paper | jq -r '.versions' | jq -r '.[0]'`\r\n    \r\n    if [ \"${VER_EXISTS}\" == \"true\" ]; then\r\n        echo -e \"Version is valid. Using version ${MINECRAFT_VERSION}\"\r\n    else\r\n        echo -e \"Using the latest paper version\"\r\n        MINECRAFT_VERSION=${LATEST_PAPER_VERSION}\r\n    fi\r\n    \r\n    BUILD_EXISTS=`curl -s https:\/\/papermc.io\/api\/v1\/paper\/${MINECRAFT_VERSION} | jq -r --arg BUILD ${BUILD_NUMBER} '.builds.all[] | IN($BUILD)' | grep true`\r\n    LATEST_PAPER_BUILD=`curl -s https:\/\/papermc.io\/api\/v1\/paper\/${MINECRAFT_VERSION} | jq -r '.builds.latest'`\r\n    \r\n    if [ \"${BUILD_EXISTS}\" == \"true\" ] || [ ${BUILD_NUMBER} == \"latest\" ]; then\r\n        echo -e \"Build is valid. Using version ${BUILD_NUMBER}\"\r\n    else\r\n        echo -e \"Using the latest paper build\"\r\n        BUILD_NUMBER=${LATEST_PAPER_BUILD}\r\n    fi\r\n    \r\n    echo \"Version being downloaded\"\r\n    echo -e \"MC Version: ${MINECRAFT_VERSION}\"\r\n    echo -e \"Build: ${BUILD_NUMBER}\"\r\n    DOWNLOAD_URL=https:\/\/papermc.io\/api\/v1\/paper\/${MINECRAFT_VERSION}\/${BUILD_NUMBER}\/download \r\nfi\r\n\r\ncd \/mnt\/server\r\n\r\necho -e \"running curl -o ${SERVER_JARFILE} ${DOWNLOAD_URL}\"\r\n\r\nif [ -f ${SERVER_JARFILE} ]; then\r\n    mv ${SERVER_JARFILE} ${SERVER_JARFILE}.old\r\nfi\r\n\r\ncurl -o ${SERVER_JARFILE} ${DOWNLOAD_URL}\r\n\r\nif [ ! -f server.properties ]; then\r\n    echo -e \"Downloading MC server.properties\"\r\n    curl -o server.properties https:\/\/raw.githubusercontent.com\/parkervcp\/eggs\/master\/minecraft_java\/server.properties\r\nfi",
-                    "entry": "ash",
-                    "container": "alpine:3.9",
-                    "extends": null
-                    },
-                    "created_at": "2019-12-22T04:42:51+00:00",
-                    "updated_at": "2019-12-22T04:42:51+00:00",
-                    "relationships": {
-                    "nest": {
-                        "object": "nest",
-                        "attributes": {
-                        "id": 1,
-                        "uuid": "58bde975-ec57-4af2-b241-1426ac6d6d59",
-                        "author": "support@pterodactyl.io",
-                        "name": "Minecraft",
-                        "description": "Minecraft - the classic game from Mojang. With support for Vanilla MC, Spigot, and many others!",
-                        "created_at": "2019-12-22T04:42:51+00:00",
-                        "updated_at": "2019-12-22T04:42:51+00:00"
-                        }
-                    },
-                    "servers": {
-                        "object": "list",
-                        "data": []
-                    }
-                    }
-                }
-                },
-                {
-                "object": "egg",
-                "attributes": {
-                    "id": 4,
-                    "uuid": "00274063-5d21-439f-80b9-c4cc0dba8188",
-                    "name": "Sponge (SpongeVanilla)",
-                    "nest": 1,
-                    "author": "support@pterodactyl.io",
-                    "description": "SpongeVanilla is the SpongeAPI implementation for Vanilla Minecraft.",
-                    "docker_image": "quay.io\/pterodactyl\/core:java-glibc",
-                    "config": {
-                    "files": {
-                        "server.properties": {
-                        "parser": "properties",
-                        "find": {
-                            "server-ip": "0.0.0.0",
-                            "enable-query": "true",
-                            "server-port": "{{server.build.default.port}}",
-                            "query.port": "{{server.build.default.port}}"
-                        }
-                        }
-                    },
-                    "startup": {
-                        "done": ")! For help, type ",
-                        "userInteraction": [
-                        "Go to eula.txt for more info."
-                        ]
-                    },
-                    "stop": "stop",
-                    "logs": {
-                        "custom": false,
-                        "location": "logs\/latest.log"
-                    },
-                    "extends": null
-                    },
-                    "startup": "java -Xms128M -Xmx{{SERVER_MEMORY}}M -jar {{SERVER_JARFILE}}",
-                    "script": {
-                    "privileged": true,
-                    "install": "#!\/bin\/ash\n# Sponge Installation Script\n#\n# Server Files: \/mnt\/server\n\napk update\napk add curl\n\ncd \/mnt\/server\n\ncurl -sSL \"https:\/\/repo.spongepowered.org\/maven\/org\/spongepowered\/spongevanilla\/${SPONGE_VERSION}\/spongevanilla-${SPONGE_VERSION}.jar\" -o ${SERVER_JARFILE}",
-                    "entry": "ash",
-                    "container": "alpine:3.9",
-                    "extends": null
-                    },
-                    "created_at": "2019-12-22T04:42:51+00:00",
-                    "updated_at": "2019-12-22T04:42:51+00:00",
-                    "relationships": {
-                    "nest": {
-                        "object": "nest",
-                        "attributes": {
-                        "id": 1,
-                        "uuid": "58bde975-ec57-4af2-b241-1426ac6d6d59",
-                        "author": "support@pterodactyl.io",
-                        "name": "Minecraft",
-                        "description": "Minecraft - the classic game from Mojang. With support for Vanilla MC, Spigot, and many others!",
-                        "created_at": "2019-12-22T04:42:51+00:00",
-                        "updated_at": "2019-12-22T04:42:51+00:00"
-                        }
-                    },
-                    "servers": {
-                        "object": "list",
-                        "data": []
-                    }
-                    }
-                }
                 },
                 {
                 "object": "egg",
@@ -793,5 +669,59 @@ class Pterodactyl
             }
         }
         */
+    }
+
+    public static function create_server($user_id, $node_id = null, $egg_id, $name, $ram, $disk, $cpu)
+    {
+        $egg = Egg::where('egg_id', $egg_id)->first();
+        $egg_information = Pterodactyl::get_egg($egg->nest_id, $egg->egg_id);
+        $user = User::where('id', $user_id)->first();
+        $options = json_encode([
+            'name' => $name,
+            'user' => $user->panel_acc,
+            'egg' => $egg_id,
+            'docker_image' => $egg_information['attributes']['docker_image'],
+            'startup' => $egg_information['attributes']['startup'],
+            'environment' => [],
+            'limits' => [
+                'memory' => $ram,
+                'swap' => 0,
+                'disk' => $disk,
+                'io' => 500,
+                'cpu' => $cpu
+            ],
+            'feature_limits' => [
+                'databases' => 0,
+                'backups' => 0,
+                "allocations" => 0
+            ],
+
+            'allocation' => [
+                'default' => 2
+            ],
+
+        ]);
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, "https://" . env('PTERODACTYL_FQDN') . "/api/application/servers");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $options);
+
+        $headers = array();
+        $headers[] = 'Accept: application/json';
+        $headers[] = 'Content-Type: application/json';
+        $headers[] = 'Authorization: Bearer ' . env('PTERODACTYL_APPLICATION_KEY');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close($ch);
+        $pterodactyl_result = json_decode($result, true);
+        dd($pterodactyl_result);
+        return $pterodactyl_result;
     }
 }
