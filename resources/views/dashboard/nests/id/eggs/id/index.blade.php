@@ -47,7 +47,7 @@
                             successfully created the test will bee successfull and if not then errors will be returned.
                         </p>
                         <a href="{{ route('dashboard.nests.id.eggs.id.test', [$egg->nest->id, $egg->id]) }}"> <button
-                                type="submit" class="btn btn-warning mb-2">Test Egg</button></a>
+                                type="submit" class="btn btn-warning mb-2">Test and fix egg</button></a>
 
                     </div>
                 </div>

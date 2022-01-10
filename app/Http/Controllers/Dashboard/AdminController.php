@@ -268,5 +268,12 @@ class AdminController extends Controller
     {
         $node = Node::get()->first();
         $pterodactyl_information = Pterodactyl::create_server(Auth::user()->id, $node->node_id, $egg_id, "Testing egg", 128, 512, 10);
+        if (isset($pterodactyl_information['errors'])) {
+            $errors = "";
+            foreach ($pterodactyl_information['errors'] as $error) {
+                $errors = $errors . $error['detail'] . "<code>" . $error['meta']['source_field'] . "</code>" . $error['meta']['rule'] . "<br>";
+            }
+            return back()->with('message', $errors);
+        }
     }
 }

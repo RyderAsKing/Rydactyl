@@ -725,7 +725,6 @@ class Pterodactyl
         }
         curl_close($ch);
         $pterodactyl_result = json_decode($result, true);
-        dd($pterodactyl_result);
         return $pterodactyl_result;
     }
 }
