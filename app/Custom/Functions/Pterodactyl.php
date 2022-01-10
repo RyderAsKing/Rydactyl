@@ -693,14 +693,18 @@ class Pterodactyl
             'feature_limits' => [
                 'databases' => 0,
                 'backups' => 0,
-                "allocations" => 0
+                'allocations' => 1
             ],
-
-            'allocation' => [
-                'default' => 2
-            ],
-
+            'deploy' => [
+                'locations' => [
+                    $node_id
+                ],
+                'allocations' => [],
+                'port_range' => [],
+                'dedicated_ip' => false,
+            ]
         ]);
+
 
         $ch = curl_init();
 
