@@ -267,12 +267,19 @@ class AdminController extends Controller
     public function test_egg($nest_id, $egg_id)
     {
         $node = Node::get()->first();
+        $egg = Egg::where(['id' => $egg_id, 'nest_id' => $nest_id])->firstOrFail();
         $pterodactyl_information = Pterodactyl::create_server(Auth::user()->id, $node->node_id, $egg_id, "Testing egg", 128, 512, 10);
         if (isset($pterodactyl_information['errors'])) {
             $errors = "";
             foreach ($pterodactyl_information['errors'] as $error) {
                 $errors = $errors . $error['detail'] . "<code>" . $error['meta']['source_field'] . "</code>" . $error['meta']['rule'] . "<br>";
+                $current_env_vars = $egg->env_vars;
+                if ($current_env_vars == null) {
+                    $current_env_vars = [];
+                }
+                $egg->env_vars = array_merge($current_env_vars, [trim($error['meta']['source_field'], 'environment.') => ""]);
             }
+            $egg->save();
             return back()->with('message', $errors);
         }
     }

@@ -676,13 +676,17 @@ class Pterodactyl
         $egg = Egg::where('egg_id', $egg_id)->first();
         $egg_information = Pterodactyl::get_egg($egg->nest_id, $egg->egg_id);
         $user = User::where('id', $user_id)->first();
+        $env_vars = $egg->env_vars;
+        if ($env_vars == null) {
+            $env_vars = [];
+        }
         $options = json_encode([
             'name' => $name,
             'user' => $user->panel_acc,
             'egg' => $egg_id,
             'docker_image' => $egg_information['attributes']['docker_image'],
             'startup' => $egg_information['attributes']['startup'],
-            'environment' => [],
+            'environment' => $env_vars,
             'limits' => [
                 'memory' => $ram,
                 'swap' => 0,
