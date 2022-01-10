@@ -15,7 +15,7 @@ class AddEnvVarsToEggs extends Migration
     {
         Schema::table('eggs', function (Blueprint $table) {
             //
-            $table->text('env_vars')->default([])->nullable();
+            $table->json('env_vars')->nullable();
         });
     }
 
