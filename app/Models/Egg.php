@@ -17,6 +17,11 @@ class Egg extends Model
         'description',
         'uuid',
         'enabled',
+        'env_vars',
+    ];
+
+    protected $casts = [
+        'env_vars' => 'array',
     ];
 
     public function nest()
