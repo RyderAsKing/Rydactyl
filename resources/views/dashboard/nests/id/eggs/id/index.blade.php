@@ -52,7 +52,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12">
+            <div class="col-12 mb-3">
                 <div class="card">
                     <div class="card-body">
                         <form action="{{ route('dashboard.nests.id.eggs.id', [$egg->nest->id, $egg->id]) }}"
@@ -84,6 +84,14 @@
                             @enderror
                             <button type="submit" class="btn btn-success">Update</button>
                         </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="mb-3">Environment Variables</h5>
+                        TODO: Add environment variables
                     </div>
                 </div>
             </div>
