@@ -5,7 +5,7 @@
     <div class="content-wrapper">
         @yield('message')
         <div class="row">
-            <div class="col-6 grid-margin stretch-card">
+            <div class="col-4 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         @if($egg->enabled == true)
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 grid-margin stretch-card">
+            <div class="col-4 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Resync Egg</h4>
@@ -35,6 +35,19 @@
                             be updated for any servers description on the dashboard.</p>
                         <a href="{{ route('dashboard.nests.id.eggs.id.resync', [$egg->nest->id, $egg->id]) }}"> <button
                                 type="submit" class="btn btn-info mb-2">Resync</button></a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Test Egg</h4>
+                        <p> Testing a egg will try to create a server with the information available, if its
+                            successfully created the test will bee successfull and if not then errors will be returned.
+                        </p>
+                        <a href="{{ route('dashboard.nests.id.eggs.id.test', [$egg->nest->id, $egg->id]) }}"> <button
+                                type="submit" class="btn btn-warning mb-2">Test Egg</button></a>
 
                     </div>
                 </div>

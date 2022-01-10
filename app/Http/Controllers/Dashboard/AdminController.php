@@ -264,7 +264,7 @@ class AdminController extends Controller
         return back()->with('message', 'Egg resynced successfully');
     }
 
-    public function test_egg($egg_id)
+    public function test_egg($nest_id, $egg_id)
     {
         $node = Node::get()->first();
         $pterodactyl_information = Pterodactyl::create_server(Auth::user()->id, $node->node_id, $egg_id, "Testing egg", 128, 512, 10);
