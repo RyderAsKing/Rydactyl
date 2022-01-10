@@ -256,7 +256,7 @@ class AdminController extends Controller
     public function egg_resync($nest_id, $id)
     {
         $egg = Egg::where(['id' => $id, 'nest_id' => $nest_id])->firstOrFail();
-        $pterodactyl_information = Pterodactyl::get_egg($nest_id, $id);
+        $pterodactyl_information = Pterodactyl::get_egg($nest_id, $egg->egg_id);
         $egg->name = $pterodactyl_information['attributes']['name'];
         $egg->description = Str::limit($pterodactyl_information['attributes']['description'], 512, '...');
         $egg->uuid = $pterodactyl_information['attributes']['uuid'];
