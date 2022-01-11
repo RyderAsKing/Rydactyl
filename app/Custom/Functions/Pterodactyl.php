@@ -804,4 +804,6 @@ class Pterodactyl
         $pterodactyl_result = json_decode($result, true);
         return $pterodactyl_result;
     }
+
+    /* Blank response if success */
 }
