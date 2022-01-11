@@ -673,7 +673,7 @@ class Pterodactyl
 
     public static function create_server($user_id, $node_id = null, $egg_id, $name, $ram, $disk, $cpu)
     {
-        $egg = Egg::where('id', $egg_id)->first();
+        $egg = Egg::where(['id' => $egg_id])->first();
         $egg_information = Pterodactyl::get_egg($egg->nest_id, $egg->egg_id);
         $user = User::where('id', $user_id)->first();
         $env_vars = $egg->env_vars;
@@ -683,7 +683,7 @@ class Pterodactyl
         $options = json_encode([
             'name' => $name,
             'user' => $user->panel_acc,
-            'egg' => $egg_id,
+            'egg' => $egg->egg_id,
             'docker_image' => $egg_information['attributes']['docker_image'],
             'startup' => $egg_information['attributes']['startup'],
             'environment' => $env_vars,
@@ -728,6 +728,79 @@ class Pterodactyl
             echo 'Error:' . curl_error($ch);
         }
         curl_close($ch);
+        $pterodactyl_result = json_decode($result, true);
+        return $pterodactyl_result;
+    }
+
+    /*
+    {
+    "object": "server",
+        "attributes": {
+            "id": 7,
+            "external_id": null,
+            "uuid": "d557c19c-8b21-4456-a9e5-181beda429f4",
+            "identifier": "d557c19c",
+            "name": "Building",
+            "description": "",
+            "suspended": false,
+            "limits": {
+            "memory": 128,
+            "swap": 0,
+            "disk": 512,
+            "io": 500,
+            "cpu": 100,
+            "threads": null
+            },
+            "feature_limits": {
+            "databases": 5,
+            "allocations": 0,
+            "backups": 1
+            },
+            "user": 1,
+            "node": 1,
+            "allocation": 17,
+            "nest": 1,
+            "egg": 1,
+            "container": {
+            "startup_command": "java -Xms128M -Xmx128M -jar server.jar",
+            "image": "quay.io\/pterodactyl\/core:java",
+            "installed": false,
+            "environment": {
+                "BUNGEE_VERSION": "latest",
+                "SERVER_JARFILE": "server.jar",
+                "STARTUP": "java -Xms128M -Xmx128M -jar server.jar",
+                "P_SERVER_LOCATION": "GB",
+                "P_SERVER_UUID": "d557c19c-8b21-4456-a9e5-181beda429f4",
+                "P_SERVER_ALLOCATION_LIMIT": 0
+            }
+            },
+            "updated_at": "2020-10-29T01:38:59+00:00",
+            "created_at": "2020-10-29T01:38:59+00:00"
+        }
+    }
+    */
+
+    public static function delete_server($id, $force = false)
+    {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, "https://" . env('PTERODACTYL_FQDN') . "/api/application/servers/" . $id);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+
+
+        $headers = array();
+        $headers[] = 'Accept: application/json';
+        $headers[] = 'Content-Type: application/json';
+        $headers[] = 'Authorization: Bearer ' . env('PTERODACTYL_APPLICATION_KEY');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close($ch);
+
         $pterodactyl_result = json_decode($result, true);
         return $pterodactyl_result;
     }

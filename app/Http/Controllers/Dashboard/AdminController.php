@@ -217,19 +217,19 @@ class AdminController extends Controller
         return back()->with('message', 'Egg has been added successfully');
     }
 
-    public function egg_manage($nest_id, $id)
+    public function egg_manage($nest_id, $egg_id)
     {
-        $egg = Egg::where(['id' => $id, 'nest_id' => $nest_id])->firstOrFail();
+        $egg = Egg::where(['id' => $egg_id, 'nest_id' => $nest_id])->firstOrFail();
         return view('dashboard.nests.id.eggs.id.index', ['egg' => $egg]);
     }
 
-    public function egg_update(Request $request, $nest_id, $id)
+    public function egg_update(Request $request, $nest_id, $egg_id)
     {
-        $this->validate($request, ['egg_name' => 'nullable|max:64', 'egg_description' => 'nullable|max:256']);
-        if ($request->egg_name == null && $request->egg_description == null) {
+        $this->validate($request, ['egg_name' => 'nullable|max:64', 'egg_description' => 'nullable|max:256', 'env_vars' => 'nullable|string|max:512']);
+        if ($request->egg_name == null && $request->egg_description == null && $request->env_vars == null) {
             return back()->with('message', 'No changes were made');
         }
-        $egg = Egg::where(['id' => $id, 'nest_id' => $nest_id])->firstOrFail();
+        $egg = Egg::where(['id' => $egg_id, 'nest_id' => $nest_id])->firstOrFail();
 
         if ($request->egg_name != null) {
             $egg->name = $request->egg_name;
@@ -237,13 +237,16 @@ class AdminController extends Controller
         if ($request->egg_description != null) {
             $egg->description = $request->egg_description;
         }
+        if ($request->env_vars != null) {
+            $egg->env_vars = json_decode($request->env_vars);
+        }
         $egg->save();
         return back()->with('message', 'Egg updated successfully');
     }
 
-    public function egg_toggle($nest_id, $id)
+    public function egg_toggle($nest_id, $egg_id)
     {
-        $egg = Egg::where(['id' => $id, 'nest_id' => $nest_id])->firstOrFail();
+        $egg = Egg::where(['id' => $egg_id, 'nest_id' => $nest_id])->firstOrFail();
         if ($egg->enabled == false) {
             $egg->enabled = true;
         } else {
@@ -253,9 +256,9 @@ class AdminController extends Controller
         return back()->with('message', 'Egg status toggled successfully');
     }
 
-    public function egg_resync($nest_id, $id)
+    public function egg_resync($nest_id, $egg_id)
     {
-        $egg = Egg::where(['id' => $id, 'nest_id' => $nest_id])->firstOrFail();
+        $egg = Egg::where(['id' => $egg_id, 'nest_id' => $nest_id])->firstOrFail();
         $pterodactyl_information = Pterodactyl::get_egg($nest_id, $egg->egg_id);
         $egg->name = $pterodactyl_information['attributes']['name'];
         $egg->description = Str::limit($pterodactyl_information['attributes']['description'], 512, '...');
@@ -272,13 +275,21 @@ class AdminController extends Controller
             $errors = "";
             foreach ($pterodactyl_information['errors'] as $error) {
                 $errors = $errors . $error['detail'] . "<code>" . $error['meta']['source_field'] . "</code>(" . $error['meta']['rule'] . ")<br>";
-                // $current_env_vars = $egg->env_vars;
-                // if ($current_env_vars == null) {
-                //     $current_env_vars = [];
-                // }
-                // $egg->env_vars = array_merge($current_env_vars, [trim($error['meta']['source_field'], 'environment.') => ""]);
             }
             return back()->with('message', $errors);
+        }
+        if (isset($pterodactyl_information['object']) && $pterodactyl_information['object'] == 'server') {
+            $pterodactyl_information = Pterodactyl::delete_server($pterodactyl_information['attributes']['id']);
+            if ($pterodactyl_information == null) {
+                return back()->with('message', 'Egg test successful');
+            }
+            if (isset($pterodactyl_information['errors'])) {
+                $errors = "";
+                foreach ($pterodactyl_information['errors'] as $error) {
+                    $errors = $errors . $error['detail'] . "<br>";
+                }
+                return back()->with('message', "Egg test passed however there were some errors removing the test server - " . $errors);
+            }
         }
     }
 }

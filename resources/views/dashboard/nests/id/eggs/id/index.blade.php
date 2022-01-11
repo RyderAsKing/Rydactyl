@@ -82,16 +82,21 @@
                             @error('egg_description')
                             <p>{{ $message }}</p>
                             @enderror
+
+                            <div class="form-group">
+                                <label for="env_vars">Environment Variables</label>
+                                <input type="text" class="form-control mb-3" id="env_vars" name="env_vars"
+                                    placeholder='{"VARIABLE": "VALUE", "SECOND_VARIABLE": "SECOND_VALUE"}' value={{
+                                    old('env_vars') }}>
+                                <small>Current
+                                    Vars: {{
+                                    json_encode($egg->env_vars) }}</small>
+                            </div>
+                            @error('env_vars')
+                            <p>{{ $message }}</p>
+                            @enderror
                             <button type="submit" class="btn btn-success">Update</button>
                         </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="mb-3">Environment Variables</h5>
-                        TODO: Add environment variables
                     </div>
                 </div>
             </div>

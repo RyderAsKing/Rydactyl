@@ -25,7 +25,7 @@ class Egg extends Model
     ];
 
     protected $attributes = [
-        'env_vars' => '{"rydactyl": "true"}',
+        'env_vars' => '{"RYADCTYL": "1"}',
     ];
 
     public function nest()
