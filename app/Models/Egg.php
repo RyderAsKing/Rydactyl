@@ -24,6 +24,10 @@ class Egg extends Model
         'env_vars' => 'array',
     ];
 
+    protected $attributes = [
+        'env_vars' => '{"rydactyl": "true"}',
+    ];
+
     public function nest()
     {
         return $this->belongsTo(Nest::class);

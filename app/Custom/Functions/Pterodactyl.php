@@ -673,7 +673,7 @@ class Pterodactyl
 
     public static function create_server($user_id, $node_id = null, $egg_id, $name, $ram, $disk, $cpu)
     {
-        $egg = Egg::where('egg_id', $egg_id)->first();
+        $egg = Egg::where('id', $egg_id)->first();
         $egg_information = Pterodactyl::get_egg($egg->nest_id, $egg->egg_id);
         $user = User::where('id', $user_id)->first();
         $env_vars = $egg->env_vars;
