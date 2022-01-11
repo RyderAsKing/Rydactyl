@@ -92,7 +92,6 @@ class DiscordController extends Controller
         Session::put('access_token', $accessTokenData->access_token);
         Session::put('user', $userData);
 
-        Auth::login($user);
 
         $user->last_login = Carbon::now();
         $user->save();
@@ -101,7 +100,13 @@ class DiscordController extends Controller
         if ($user->panel_acc == null || $user->panel_acc == 0) {
             // Create pterodactyl account
             $pterodactyl_information = Pterodactyl::create_user($user);
+            if ($pterodactyl_information == false) {
+                $user->delete();
+                return redirect()->route("home")->with('error', 'There was an error creating your panel account. Please contact support.');
+            }
         }
+
+        Auth::login($user);
 
         if ($pterodactyl_information != null || $pterodactyl_information != false) {
             Session::put('pterodactyl_information', $pterodactyl_information);

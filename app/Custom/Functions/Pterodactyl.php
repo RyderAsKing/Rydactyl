@@ -30,7 +30,8 @@ class Pterodactyl
         )));
         $pterodactyl_result = curl_exec($ch);
         curl_close($ch);
-        if (json_decode($pterodactyl_result, true)['object'] == "user") {
+        $pterodactyl_result = json_decode($pterodactyl_result, true);
+        if (isset($pterodactyl_result['object']) && $pterodactyl_result['object'] == "user") {
             $user->panel_acc = json_decode($pterodactyl_result, true)['attributes']['id'];
             $user->save();
             return array('username' => $pterodactyl_username, 'password' => $pterodactyl_password);
