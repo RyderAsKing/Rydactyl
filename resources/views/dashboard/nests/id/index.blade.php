@@ -9,7 +9,7 @@
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <p> Delete a Nest would remove the database entry.</p>
+                        <p> Deleting a Nest would remove the database entry.</p>
                         <a href="{{ route('dashboard.nests.id.delete', $nest->id) }}"> <button type="submit"
                                 class="btn btn-danger mb-2">Delete</button></a>
 
