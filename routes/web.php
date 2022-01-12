@@ -73,3 +73,5 @@ Route::middleware(['auth.admin'])->group(function () {
     Route::get('/dashboard/nests/{nest_id}/eggs/{egg_id}/resync', [AdminController::class, 'egg_resync'])->name('dashboard.nests.id.eggs.id.resync');
     Route::get('/dashboard/nests/{nest_id}/eggs/{egg_id}/test', [AdminController::class, 'test_egg'])->name('dashboard.nests.id.eggs.id.test');
 });
+
+// TODO: Add servers model and then routes for egg delete and node delete if theres no server using them
