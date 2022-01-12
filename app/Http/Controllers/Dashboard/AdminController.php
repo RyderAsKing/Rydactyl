@@ -109,7 +109,7 @@ class AdminController extends Controller
         $this->validate($request, ['node_name' => 'required|max:128', 'node_description' => 'required|max:256', 'node_id' => 'required|numeric|unique:nodes,node_id', 'node_slots' => 'required|numeric|min:0']);
         $node = Pterodactyl::get_node($request->node_id);
         Node::create(['name' => $request->node_name, 'description' => $request->node_description, 'slots' => $request->node_slots, 'slots_used' => 0, 'type' => 0, 'panel_fqdn' => env('PTERODACTYL_FQDN'), 'node_id' => $node['attributes']['id'], 'uuid' => $node['attributes']['uuid'], 'memory_allocated' => 0, 'disk_allocated' => 0, 'node_fqdn' => $node['attributes']['fqdn']]);
-        return redirect()->route("dashboard.nodes.add")->with('message', 'Node has been added successfully');
+        return redirect()->route("dashboard.nodes")->with('message', 'Node has been added successfully');
     }
 
     public function node_manage($id)
