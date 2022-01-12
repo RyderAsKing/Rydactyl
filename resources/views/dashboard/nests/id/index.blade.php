@@ -5,6 +5,18 @@
     <div class="content-wrapper">
         @yield('message')
         <div class="row">
+            @if(count($nest->egg) == 0)
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <p> Delete a Nest would remove the database entry.</p>
+                        <a href="{{ route('dashboard.nests.id.delete', $nest->id) }}"> <button type="submit"
+                                class="btn btn-danger mb-2">Delete</button></a>
+
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="col-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">

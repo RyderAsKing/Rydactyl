@@ -202,6 +202,16 @@ class AdminController extends Controller
         return back()->with('message', 'Nest resynced successfully');
     }
 
+    public function nest_delete($id)
+    {
+        $nest = Nest::where(['id' => $id])->firstOrFail();
+        if (count($nest->egg) > 0) {
+            return back()->with('message', 'Nest has an egg attached to it, please remove the egg first');
+        }
+        $nest->delete();
+        return redirect()->route('dashboard.nests')->with('message', 'Nest deleted successfully');
+    }
+
     // Eggs
     public function egg_add($nest_id)
     {
